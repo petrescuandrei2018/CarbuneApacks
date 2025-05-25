@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    @RenderSection("MetaTags", required: false)
+
+    <title>@ViewData["Title"] - CĂRBUNI APACKS</title>
+    <meta name="description" content="Cărbuni de grătar naturali, cu ardere curată și aprindere rapidă. Comandă online brichete și cărbuni din lemn de esență tare. Livrare rapidă oriunde în România.">
+    <meta name="robots" content="index, follow">
+    @if (ViewData["Canonical"] != null)
+    {
+        <link rel="canonical" href="@ViewData["Canonical"]" />
+    }
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1166759961920276');
+        fbq('track', 'PageView');
+
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.matches('.btn-adauga-cos')) {
+                fbq('track', 'AddToCart');
+            }
+            if (e.target && (e.target.href?.includes('wa.me') || e.target.href?.includes('tel:'))) {
+                fbq('track', 'Contact');
+            }
+        });
+
+        document.addEventListener('submit', function (e) {
+            if (e.target && e.target.matches('#formular-comanda')) {
+                fbq('track', 'Purchase');
+            }
+        });
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1166759961920276&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cărbuni pentru grătar – CĂRBUNI APACKS" />
+    <meta property="og:description" content="Cărbuni de calitate superioară, naturali, fără fum, livrare rapidă." />
+    <meta property="og:url" content="https://carbune.ro" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://carbune.ro/assets/img/preview.jpg" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Website" asp-action="Index">CĂRBUNI APACKS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Comută navigarea">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Website" asp-action="Index">Acasă</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Website" asp-action="Produse">Produse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Website" asp-action="CumAlegiCarbunii">Cum alegi cărbunii</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Website" asp-action="DespreNoi">Despre noi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Website" asp-action="Contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-light text-center text-muted py-4 mt-5" style="font-size: 0.95rem;">
+        <div class="container">
+            <p class="mb-2 fw-bold">Contact rapid:</p>
+
+            <p class="mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;"><path fill="#e74c3c" d="M6.62 10.79a15.53 15.53 0 006.59 6.59l2.2-2.2a1 1 0 011.06-.24 11.36 11.36 0 003.55.57 1 1 0 011 1v3.61a1 1 0 01-.91 1A19.74 19.74 0 014 4.91 1 1 0 015 4h3.6a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.24 1.06z"/></svg>
+                Telefon: <a href="tel:+40762603856">0762 603 856</a>
+            </p>
+
+            <p class="mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 32 32" style="vertical-align: middle; margin-right: 6px;"><path fill="#25D366" d="M16 0C7.2 0 0 7.2 0 16a15.8 15.8 0 002.1 7.9L0 32l8.2-2.1A16 16 0 1032 16c0-8.8-7.2-16-16-16zm0 29.5c-2.5 0-5-.7-7.2-2.1l-.5-.3-5.6 1.4 1.4-5.6-.3-.5A13.5 13.5 0 1129.5 16 13.5 13.5 0 0116 29.5z"/></svg>
+                WhatsApp: <a href="https://wa.me/40762603856" target="_blank">0762 603 856</a>
+            </p>
+
+            <p class="mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;"><path fill="#1877F2" d="M22.7 0H1.3C.6 0 0 .6 0 1.3v21.3C0 23.4.6 24 1.3 24H12v-9.3H9.7v-3.3H12V8.8c0-3.1 1.9-4.8 4.7-4.8 1.3 0 2.5.1 2.8.1v3.2l-1.9.1c-1.5 0-1.8.7-1.8 1.8v2.3h3.6l-.5 3.3H16v9.3h6.1c.7 0 1.3-.6 1.3-1.3V1.3c0-.7-.6-1.3-1.3-1.3z"/></svg>
+                Facebook: <a href="https://www.facebook.com/profile.php?id=61576599694962" target="_blank">facebook.com/Apacks</a>
+            </p>
+
+            <p class="mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;"><path fill="#000" d="M16.9 0H7.1C3.2 0 0 3.2 0 7.1v9.8C0 20.8 3.2 24 7.1 24h9.8c3.9 0 7.1-3.2 7.1-7.1V7.1C24 3.2 20.8 0 16.9 0zM18.6 13.7a5.2 5.2 0 01-2.8-.8 8.4 8.4 0 01-2.3-2.3 5.2 5.2 0 01-.8-2.8h1.6c.1 1.1.5 2.2 1.2 3.1a6.7 6.7 0 002.2 1.8v1z"/></svg>
+                TikTok: <a href="https://www.tiktok.com/@@carbuni_apacks" target="_blank">@@carbuni_apacks</a>
+            </p>
+
+            <p class="mb-2">📧 Email: <a href="mailto:contact.apacks@gmail.com">contact.apacks@gmail.com</a></p>
+
+            <hr class="my-3" style="max-width: 200px; margin: 1.5rem auto;" />
+            <p class="mb-0 text-muted">&copy; 2025 Carbune.ro – Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

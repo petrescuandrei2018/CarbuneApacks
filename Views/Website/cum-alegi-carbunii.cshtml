@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Cum alegi cărbunii potriviți pentru grătar | Ghid Apacks";
+    ViewData["Canonical"] = "https://carbune.ro/cum-alegi-carbunii";
+    Layout = "_Layout";
+}
+
+@section MetaTags {
+    <meta name="description" content="Alege corect cărbunii pentru grătar: lemn tare, rumeguș, cocos sau bambus. Află diferențele și recomandările Apacks pentru ardere curată.">
+    <meta property="og:title" content="Cum alegi cărbunii potriviți pentru grătar | Ghid Apacks" />
+    <meta property="og:description" content="Comparație completă între tipurile de cărbuni – brichetați, rumeguș, cocos, bambus. Ghid Apacks pentru un grătar reușit." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://carbune.ro/cum-alegi-carbunii" />
+    <meta property="og:image" content="https://carbune.ro/images/carbuni-preview.jpg" />
+}
+
+<section class="container py-4 px-3" style="max-width: 700px; margin: auto;">
+    <h1 class="h4 fw-bold mb-4 text-center text-uppercase">Cum alegi cărbunii potriviți pentru grătar</h1>
+
+    <p>Când vrei să faci un grătar reușit, alegerea cărbunilor face diferența. Arderea, mirosul, durata și intensitatea căldurii depind direct de tipul de cărbune ales.</p>
+
+    <h2 class="h5 fw-bold mt-4">🔥 Tipuri de cărbuni Apacks</h2>
+    <ul>
+        <li><strong>Cărbuni brichetați din lemn tare</strong> – ardere constantă, perfect pentru grătare lungi.</li>
+        <li><strong>Cărbuni din rumeguș presat</strong> – ecologici, aprindere ușoară, ardere de 2–3 ore.</li>
+        <li><strong>Cărbuni din cocos</strong> – foarte puțin fum, ideali pentru grătare indoor sau HoReCa.</li>
+        <li><strong>Cărbuni din bambus</strong> – ardere foarte lentă (până la 5 ore), fără miros, 100% naturali.</li>
+    </ul>
+
+    <h2 class="h5 fw-bold mt-4">📋 Ce criterii trebuie să urmărești?</h2>
+    <ul>
+        <li>✔️ <strong>Durata de ardere:</strong> ai nevoie de brichete dense pentru sesiuni lungi.</li>
+        <li>✔️ <strong>Fără fum:</strong> optează pentru cocos sau bambus dacă grătarul e aproape de casă.</li>
+        <li>✔️ <strong>Putere calorică:</strong> lemnul de esență tare și bambusul oferă căldură constantă.</li>
+        <li>✔️ <strong>Curățenie:</strong> toate tipurile Apacks sunt fără praf, fără scântei, fără mizerie.</li>
+    </ul>
+
+    <h2 class="h5 fw-bold mt-4">📦 Recomandările noastre</h2>
+    <p>
+        Dacă vrei <strong>un grătar rapid</strong>, îți recomandăm <a href="/Website/carbuni-rumegus">cărbunii din rumeguș</a> sau <a href="/Website/kit-lemne-aprindere">kitul de aprindere</a>.
+        Pentru <strong>evenimente lungi</strong>, cele mai bune opțiuni sunt <a href="/Website/carbuni-bambus">cărbunii din bambus</a> și <a href="/Website/carbuni-hexagonali-brichetati">brichetele hexagonale</a>.
+    </p>
+
+    <div class="mt-4 text-center">
+        <a href="/Website/Produse" class="btn btn-danger btn-lg w-100">Vezi toți cărbunii disponibili</a>
+    </div>
+
+    <p class="mt-4 text-center">
+        <a href="/" class="text-decoration-none">← Înapoi la pagina principală</a>
+    </p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Eveniment la scroll 50% în pagină – semnalăm implicare
+            let trackedScroll = false;
+            window.addEventListener('scroll', function () {
+                if (!trackedScroll && window.scrollY > (document.body.scrollHeight / 2)) {
+                    fbq('trackCustom', 'GhidScroll50');
+                    trackedScroll = true;
+                }
+            });
+
+            // Click pe link produs = interes real
+            const links = document.querySelectorAll('a[href*="/Website/carbuni"]');
+            links.forEach(link => {
+                link.addEventListener('click', function () {
+                    fbq('trackCustom', 'ClickRecomandareCarbune');
+                });
+            });
+
+            // Click pe buton "Vezi toți cărbunii"
+            const btn = document.querySelector('.btn-danger');
+            if (btn) {
+                btn.addEventListener('click', function () {
+                    fbq('trackCustom', 'VeziProduse');
+                });
+            }
+        });
+    </script>
+
+</section>

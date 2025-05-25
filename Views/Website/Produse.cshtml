@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Produse Cărbuni Apacks | Cărbuni naturali și accesorii grătar";
+    ViewData["Canonical"] = "https://carbune.ro/produse";
+    Layout = "_Layout";
+}
+
+@section MetaTags {
+    <meta name="description" content="Descoperă toate produsele Apacks: cărbuni brichetați din lemn, bambus, cocos, plus accesorii pentru grătar. Livrare rapidă oriunde în România." />
+    <meta property="og:title" content="Produse Cărbuni Apacks | Cărbuni naturali și accesorii grătar" />
+    <meta property="og:description" content="Descoperă cărbunii Apacks și accesoriile pentru aprindere și curățare grătar. Calitate superioară și livrare rapidă." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://carbune.ro/produse" />
+    <meta property="og:image" content="https://carbune.ro/images/carbuni-preview.jpg" />
+}
+
+<section class="container py-4 px-3" style="max-width: 700px; margin: auto;">
+    <h1 class="h4 fw-bold mb-4 text-center text-uppercase">Produse disponibile</h1>
+
+    <h2 class="h5 fw-bold mb-3">🔥 Cărbuni hexagonali brichetați</h2>
+    <ul class="list-unstyled">
+        <li><a asp-controller="Website" asp-action="CarbuniHexagonaliBrichetati" class="text-decoration-none">🔲 Cărbune presat din lemn de esență tare</a></li>
+        <li><a asp-controller="Website" asp-action="CarbuniRumegus" class="text-decoration-none">🪵 Brichete de rumeguș</a></li>
+        <li><a asp-controller="Website" asp-action="CarbuniCocos" class="text-decoration-none">🥥 Cărbuni din coajă de nucă de cocos</a></li>
+        <li><a asp-controller="Website" asp-action="CarbuniBambus" class="text-decoration-none">🎍 Cărbuni din bambus</a></li>
+    </ul>
+
+    <hr class="my-4" />
+
+    <h2 class="h5 fw-bold mb-3">🧰 Alte produse pentru aprindere și curățare</h2>
+    <ul class="list-unstyled">
+        <li><a asp-controller="Website" asp-action="KitLemneAprindere" class="text-decoration-none">🔥 Kit lemne uscate pentru aprindere grătar</a></li>
+        <li><a asp-controller="Website" asp-action="LanaLemn" class="text-decoration-none">🔥 Lână de lemn pentru aprindere grătar</a></li>
+        <li><a asp-controller="Website" asp-action="AprinzatorCarbuniOtel" class="text-decoration-none">🧯 Aprinzător cărbuni din oțel inoxidabil</a></li>
+        <li><a asp-controller="Website" asp-action="PerieGratar" class="text-decoration-none">🧽 Perie 3 straturi + racletă din oțel inoxidabil</a></li>
+        <li><a asp-controller="Website" asp-action="ClesteOtel" class="text-decoration-none">🔧 Clește 45cm din oțel inoxidabil pentru întors preparatele</a></li>
+    </ul>
+
+    <div class="mt-4 text-center">
+        <a asp-controller="Website" asp-action="Contact" class="btn btn-primary btn-lg w-100 btn-adauga-cos">Comandă acum sau cere detalii</a>
+    </div>
+</section>
