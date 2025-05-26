@@ -13,23 +13,195 @@
     <meta property="og:image" content="https://carbune.ro/images/carbuni-preview.jpg" />
 }
 
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: #fff;
+        height: auto;
+    }
+
+    .full-width-hero {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        min-height: 340px;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.32);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        pointer-events: none;
+    }
+
+        .hero-overlay * {
+            pointer-events: auto;
+        }
+
+        .hero-overlay h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-overlay p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+    .btn-primary {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .play-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        display: none;
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+        .play-overlay svg {
+            width: 68px;
+            height: 68px;
+            filter: drop-shadow(0 2px 10px #0007);
+        }
+
+    .sound-toggle {
+        position: absolute;
+        bottom: 28px;
+        right: 28px;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+    }
+
+        .sound-toggle:hover {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .sound-toggle img {
+            object-fit: contain;
+            transition: all 0.2s ease-in-out;
+        }
+
+    #muteIcon {
+        width: 36px;
+        height: 36px;
+    }
+
+    #unmuteIcon {
+        width: 48px;
+        height: 48px;
+    }
+
+    @@media (max-width: 600px) {
+        .hero-overlay h1
+
+    {
+        font-size: 1.25rem;
+    }
+
+    .hero-overlay p {
+        font-size: 0.95rem;
+    }
+
+    .hero-overlay {
+        padding: 1rem;
+    }
+
+    }
+</style>
+
+<div class="full-width-hero">
+    <video id="heroVideo"
+           class="hero-video"
+           autoplay
+           muted
+           loop
+           playsinline
+           poster="~/images/hero-preview.jpg">
+        <source src="~/videos/hero-9x16.mp4" type="video/mp4" media="(max-width: 700px) and (orientation: portrait)">
+        <source src="~/videos/hero-21x9.mp4" type="video/mp4" media="(min-aspect-ratio: 21/9)">
+        <source src="~/videos/hero-16x9.mp4" type="video/mp4" media="(min-aspect-ratio: 16/9) and (max-aspect-ratio: 21/9)">
+        <source src="~/videos/hero-4x3.mp4" type="video/mp4" media="(max-aspect-ratio: 4/3)">
+        <source src="~/videos/hero-1x1.mp4" type="video/mp4" media="(max-aspect-ratio: 1/1)">
+        <source src="~/videos/clip_final_cu_muzica.mp4" type="video/mp4">
+        Browserul tău nu suportă video HTML5.
+    </video>
+
+    <div id="playOverlay" class="play-overlay">
+        <svg viewBox="0 0 64 64" fill="white">
+            <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.4)" />
+            <polygon points="26,18 50,32 26,46" fill="#fff" />
+        </svg>
+    </div>
+
+    <div class="hero-overlay">
+        <h1>CĂRBUNI APACKS</h1>
+        <p>Putere curată, ardere uniformă, fără fum și fără compromisuri.</p>
+        <a href="/Website/Produse" class="btn btn-primary btn-lg mt-3 shadow">CUMPĂRĂ ACUM</a>
+    </div>
+
+    <div class="sound-toggle" onclick="toggleSound()" title="Activează sunetul">
+        <img id="muteIcon" src="~/images/mute.png" alt="Mute" />
+        <img id="unmuteIcon" src="~/images/unmute.png" alt="Unmute" style="display:none;" />
+    </div>
+</div>
+
 <section class="container py-4 px-3" style="max-width: 720px; margin: auto;">
     <h1 class="h4 fw-bold mb-4 text-center text-uppercase">
         Cărbuni pentru grătar naturali
         <br class="d-sm-none" />
         <small class="d-block fw-normal mt-1 text-muted">Aprindere rapidă • Ardere puternică • Livrare rapidă</small>
     </h1>
-
-    <p>
-        Bine ai venit pe <strong>Carbune.ro</strong>, locul unde găsești <strong>cărbuni de grătar de calitate superioară</strong>, ideali pentru grătare perfecte de fiecare dată.
-    </p>
-
-    <p>
-        Importăm și livrăm <strong>cărbuni din lemn de esență tare</strong>, fără aditivi, fabricați special pentru <strong>ardere uniformă</strong>, <strong>aprindere ușoară</strong> și <strong>fără fum toxic</strong>.
-    </p>
-
+    <p>Bine ai venit pe <strong>Carbune.ro</strong>, locul unde găsești <strong>cărbuni de grătar de calitate superioară</strong>, ideali pentru grătare perfecte de fiecare dată.</p>
+    <p>Importăm și livrăm <strong>cărbuni din lemn de esență tare</strong>, fără aditivi, fabricați special pentru <strong>ardere uniformă</strong>, <strong>aprindere ușoară</strong> și <strong>fără fum toxic</strong>.</p>
     <hr class="my-4" />
-
     <h2 class="h5 fw-bold mb-3">✔️ Avantajele cărbunilor noștri</h2>
     <ul class="list-unstyled">
         <li>🔥 Aprindere rapidă fără lichide sau pastile chimice</li>
@@ -39,9 +211,7 @@
         <li>📦 Ambalaj rezistent pentru transport sigur</li>
         <li>🚚 Livrare rapidă oriunde în România</li>
     </ul>
-
     <hr class="my-4" />
-
     <h2 class="h5 fw-bold mb-3">🔥 Produsele noastre</h2>
     <ul class="list-unstyled">
         <li>🌳 Cărbuni din stejar, fag, carpen</li>
@@ -49,14 +219,10 @@
         <li>🧯 Kituri pentru aprindere</li>
         <li>🧺 Cutii de 3 kg sau 10 kg</li>
     </ul>
-
     <hr class="my-4" />
-
     <h2 class="h5 fw-bold mb-3">📦 Livrare rapidă în 24–48h</h2>
     <p>Comanzi direct de pe site, iar noi livrăm rapid, oriunde în țară – ambalat profesional, gata de grătar.</p>
-
     <hr class="my-4" />
-
     <h2 class="h5 fw-bold mb-3">💬 Recenzii reale de la clienți</h2>
     <blockquote class="blockquote">
         <p>„Folosesc acești cărbuni la toate grătarele. Ard perfect și fără fum.”</p>
@@ -70,9 +236,7 @@
         <p>„Am luat brichetele – țin focul aprins ore întregi.”</p>
         <footer class="blockquote-footer">Alex D., Timișoara</footer>
     </blockquote>
-
     <hr class="my-4" />
-
     <h2 class="h5 fw-bold mb-3">🛒 Comandă acum</h2>
     <ul class="list-unstyled">
         <li>✔️ Prețuri corecte</li>
@@ -80,8 +244,51 @@
         <li>✔️ Suport rapid pe <a href="https://wa.me/40762603856" target="_blank" onclick="fbq('track', 'Contact')">WhatsApp</a></li>
         <li>✔️ Garanția unui grătar reușit</li>
     </ul>
-
     <div class="mt-4 text-center">
         <a href="/Website/Produse" class="btn btn-danger btn-lg w-100 btn-adauga-cos">Vezi produsele</a>
     </div>
 </section>
+
+<script>
+    const video = document.getElementById("heroVideo");
+    const playOverlay = document.getElementById("playOverlay");
+    const muteIcon = document.getElementById("muteIcon");
+    const unmuteIcon = document.getElementById("unmuteIcon");
+
+    video.addEventListener('click', function () {
+        if (video.paused) {
+            video.play();
+            playOverlay.style.display = "none";
+        } else {
+            video.pause();
+            playOverlay.style.display = "block";
+        }
+    });
+
+    video.addEventListener('play', () => {
+        playOverlay.style.display = "none";
+    });
+
+    video.addEventListener('pause', () => {
+        playOverlay.style.display = "block";
+    });
+
+    function toggleSound() {
+        if (video.muted) {
+            video.muted = false;
+            video.volume = 1.0;
+            muteIcon.style.display = "none";
+            unmuteIcon.style.display = "inline";
+        } else {
+            video.muted = true;
+            muteIcon.style.display = "inline";
+            unmuteIcon.style.display = "none";
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (video.paused) {
+            playOverlay.style.display = "block";
+        }
+    });
+</script>
