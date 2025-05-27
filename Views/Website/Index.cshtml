@@ -13,7 +13,7 @@
     <meta property="og:image" content="https://carbune.ro/images/carbuni-preview.jpg" />
 }
 
-<style>
+@* <style>
     html, body {
         margin: 0;
         padding: 0;
@@ -44,36 +44,47 @@
 
     .hero-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.32);
-        color: white;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
-        padding: 2rem;
-        pointer-events: none;
+        color: white;
+        text-shadow: 2px 2px 5px black;
+        padding: 0 1rem;
+        z-index: 10;
+        opacity: 0;
+        animation: fadeSlideUp 1.2s ease-out forwards;
     }
 
-        .hero-overlay * {
-            pointer-events: auto;
-        }
-
         .hero-overlay h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+            font-size: 2.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
         .hero-overlay p {
             font-size: 1.2rem;
-            max-width: 600px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
+
+        .hero-overlay .btn {
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+        }
+
+            .hero-overlay .btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            }
+
 
     .btn-primary {
         background-color: #0069d9;
@@ -139,6 +150,20 @@
         height: 48px;
     }
 
+
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
     @@media (max-width: 600px) {
         .hero-overlay h1
 
@@ -155,7 +180,217 @@
     }
 
     }
+</style> *@
+
+<style>
+    :root {
+        --albastru-site: #1f3b71;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background: #fff;
+        height: auto;
+    }
+
+    .full-width-hero {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        min-height: 340px;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 5px black;
+        padding: 0 1rem;
+        z-index: 10;
+        opacity: 0;
+        animation: fadeSlideUp 1.2s ease-out forwards;
+    }
+
+        .hero-overlay h1 {
+            font-size: 2.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* .hero-overlay p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        } */
+
+        .hero-overlay p {
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: unset !important;
+            text-align: center !important;
+            display: block !important;
+            max-width: 100% !important;
+        }
+
+
+
+
+            .hero-overlay h1:hover,
+            .hero-overlay p:hover {
+                transform: scale(1.05);
+                color: var(--albastru-site);
+            }
+
+        .hero-overlay .btn {
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+
+            .hero-overlay .btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            }
+
+    .btn-primary {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .play-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        display: none;
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+        .play-overlay svg {
+            width: 68px;
+            height: 68px;
+            filter: drop-shadow(0 2px 10px #0007);
+        }
+
+    .sound-toggle {
+        position: absolute;
+        bottom: 28px;
+        right: 28px;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+    }
+
+        .sound-toggle:hover {
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .sound-toggle img {
+            object-fit: contain;
+            transition: all 0.2s ease-in-out;
+        }
+
+    #muteIcon {
+        width: 36px;
+        height: 36px;
+    }
+
+    #unmuteIcon {
+        width: 48px;
+        height: 48px;
+    }
+
+    @@keyframes fadeSlideUp {
+        0%
+
+    {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    }
+
+    @@media (max-width: 600px) {
+        .hero-overlay
+    {
+        padding: 1rem;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hero-overlay h1 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow-wrap: break-word;
+    }
+
+            .hero-overlay p {
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                white-space: normal;
+                word-break: break-word;
+                overflow: visible;
+                text-overflow: unset;
+                line-height: 1.4;
+            }
+    }
 </style>
+
 
 <div class="full-width-hero">
     <video id="heroVideo"
@@ -182,8 +417,8 @@
     </div>
 
     <div class="hero-overlay">
-        <h1>CĂRBUNI APACKS</h1>
-        <p>Putere curată, ardere uniformă, fără fum și fără compromisuri.</p>
+        <h1>MULTĂ CARNE, PUȚINI CĂRBUNI!</h1>
+        <p>APRINDERE RAPIDĂ. JAR PUTERNIC. FĂRĂ FUM. ECO. 100% NATURALI</p>
         <a href="/Website/Produse" class="btn btn-primary btn-lg mt-3 shadow">CUMPĂRĂ ACUM</a>
     </div>
 
