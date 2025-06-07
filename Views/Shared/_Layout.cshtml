@@ -20,6 +20,10 @@
 
     <link rel="icon" type="image/png" href="~/images/logo-apacks.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&subset=latin-ext&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+
+
 
     <style>
         :root {
@@ -28,7 +32,7 @@
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Montserrat', 'Arial', 'Helvetica Neue', 'Segoe UI', sans-serif !important;
         }
 
         .hero-header {
@@ -37,11 +41,13 @@
             left: 0;
             right: 0;
             z-index: 20;
-            height: 80px;
+            height: 52px;
+            min-height: 52px !important;
             display: flex;
+            background: transparent;
             justify-content: space-between;
             align-items: center;
-            padding: 0 1rem;
+            padding: 0 !important;
         }
 
             .hero-header.bg-white.border-bottom.shadow-sm {
@@ -67,8 +73,8 @@
             .cart-button svg {
                 transition: transform 0.2s ease, stroke 0.2s ease;
                 stroke-width: 3;
-                width: 28px;
-                height: 28px;
+                width: clamp(5vw, 6vw, 28px) !important;
+                height: clamp(5vw, 6vw, 28px) !important;
                 stroke: @(esteHomepage ? "white" : "var(--albastru-site)");
             }
 
@@ -83,13 +89,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 4px;
-            padding-bottom: 6px;
+            padding: 0 !important; /* eliminăm padding inutil */
+            margin: 0 auto !important; /* centrăm precis pe mobil */
         }
 
             .logo-link img {
-                height: 70px;
-                max-height: 100%;
+                width: clamp(48px, 12vw, 68px) !important;
+                max-height: clamp(32px, 10vw, 64px) !important;
+                height: auto !important;
+                display: block;
+                margin: 0 auto;
                 transition: transform 0.25s ease, filter 0.25s ease;
             }
 
@@ -97,6 +106,7 @@
                 transform: scale(1.05);
                 filter: brightness(1.1) drop-shadow(0 0 4px var(--albastru-site));
             }
+
 
         header nav a {
             padding: 4px 6px;
@@ -190,111 +200,143 @@
             }
         }
 
-        /* ✅ Responsive DOAR pentru telefon */
+        /* ✅ HEADER RESPONSIVE MOBIL (241px – 768px) */
         @@media (max-width: 768px) {
-            .hero-header {
-                height: 48px !important;
-                min-height: 48px !important;
-                background: transparent;
-                padding: 0 !important;
+    .hero-header {
+        height: 48px !important;
+        padding: 0 !important;
+        background: transparent;
+    }
+
+    .header-mobile-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 !important;
+        flex-wrap: nowrap;
+    }
+
+    .header-section-stanga,
+    .header-section-dreapta {
+        flex: 1 1 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
+    }
+
+    .header-section-stanga {
+        justify-content: flex-start !important;
+        padding-left: clamp(2px, 1vw, 6px) !important;
+    }
+
+    .header-section-dreapta {
+        justify-content: flex-end !important;
+        padding-right: clamp(2px, 1vw, 6px) !important;
+    }
+
+    .header-section-centru {
+        flex: 0 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0 clamp(4px, 1.4vw, 10px) !important;
+    }
+
+    .logo-link img {
+        width: clamp(50.4px, 12.6vw, 71.4px) !important;
+        max-height: clamp(33.6px, 9.45vw, 67.2px) !important;
+        height: auto !important;
+        display: block;
+        margin: auto;
+    }
+
+    .burger-button,
+    .cart-button {
+        width: clamp(25.2px, 8.4vw, 35.7px) !important;
+        height: clamp(25.2px, 8.4vw, 35.7px) !important;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .burger-button svg,
+    .cart-button svg {
+        width: clamp(18.9px, 6.3vw, 27.3px) !important;
+        height: clamp(18.9px, 6.3vw, 27.3px) !important;
+        stroke-width: 3;
+        display: block;
+        stroke: @(esteHomepage ? "white" : "var(--albastru-site)");
+    }
+
+    .header-section-stanga nav,
+    .header-section-dreapta nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(2px, 0.6vw, 6px);
+        flex-wrap: nowrap;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .header-section-stanga nav a,
+    .header-section-dreapta nav a {
+        font-size: clamp(0.554rem, 2.3vw, 1.4rem) !important; /* +5% */
+        padding-inline: clamp(1px, 0.42vw, 5.25px) !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+        text-align: center !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+        font-weight: 700 !important; /* BOLD */
+        letter-spacing: -0.3px !important; /* ușor negativ */
+
+    }
+
+    .homepage .header-section-stanga nav a,
+    .homepage .header-section-dreapta nav a {
+        color: #fff !important;
+    }
+
+    .homepage .header-section-stanga nav a:hover,
+    .homepage .header-section-dreapta nav a:hover {
+        color: var(--albastru-site) !important;
+    }
+
+            .link-header-important {
+                font-size: clamp(0.92rem, 4.75vw, 1.78rem) !important;
+                font-weight: 900 !important;
+                letter-spacing: -0.3px !important;
+                font-family: 'Noto Sans', sans-serif !important;
             }
-
-            .header-mobile-wrapper {
-                width: 100%;
-                flex-wrap: nowrap;
-                min-width: 0;
-                padding: 0 20px 0 6px; /* Spațiu mai mare la dreapta: 14px în loc de 6px */
-                position: relative;
-                /* overflow: visible; */
-            }
-
-            .header-section-stanga,
-            .header-section-dreapta {
-                min-width: 0;
-                flex: 0 1 auto;
-                gap: 0px !important;
-            }
-
-            .header-section-centru {
-                position: absolute;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                pointer-events: none;
-                z-index: 2;
-                height: 48px;
-                width: 100%;
-                /* ca să fie peste restul și logo-ul nu taie din stânga/dreapta */
-                top: 0;
-            }
-
-                .header-section-centru .logo-link {
-                    pointer-events: auto; /* Doar logo e clickabil */
-                    display: flex;
-                    align-items: center;
-                }
-
-            .logo-link img {
-                height: 34px !important;
-                max-width: 55px;
-                margin: 0 auto;
-            }
-
-            .burger-button,
-            .cart-button {
-                width: 34px !important;
-                height: 34px !important;
-                min-width: 26px !important;
-                min-height: 26px !important;
-                padding: 0 !important;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-                .burger-button svg,
-                .cart-button svg {
-                    width: 24px !important;
-                    height: 24px !important;
-                    display: block;
-                }
-
-            .header-section-stanga {
-                margin-right: 12px; /* Împinge spre logo */
-            }
-
-            .header-section-dreapta {
-                margin-left: 28px; /* Împinge spre logo */
-                /* overflow: visible !important; strica multe */
-            }
-
-                .header-section-stanga nav a,
-                .header-section-dreapta nav a {
-                    font-size: 0.58rem !important;
-                    padding: 0 2px !important;
-                    white-space: nowrap;
-                    font-weight: 600;
-                    max-width: 70px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    letter-spacing: 0;
-                    line-height: 1.15;
-                }
         }
 
+        .homepage .header-section-stanga nav a,
+        .homepage .header-section-dreapta nav a {
+            color: #fff !important;
+            text-rendering: optimizeLegibility !important;
 
+        }
 
+            .homepage .header-section-stanga nav a:hover,
+            .homepage .header-section-dreapta nav a:hover {
+                color: var(--albastru-site) !important;
+            }
 
+        .hero-header nav a {
+            font-family: 'Noto Sans', sans-serif !important;
+        }
 
 
     </style>
 
-</head>
-<body>
 
+</head>
+<body class="@(esteHomepage ? "homepage" : "")">
     <header class="hero-header px-2 px-sm-3 @(esteHomepage ? "" : "bg-white border-bottom shadow-sm")">
         <div class="header-mobile-wrapper w-100 d-flex align-items-center justify-content-between flex-nowrap">
 
@@ -311,8 +353,8 @@
                 </button>
 
                 <nav class="d-flex gap-1 align-items-center text-uppercase fw-bold flex-nowrap">
-                    <a href="/Website/Produse#carbuni" class="text-decoration-none">CĂRBUNI</a>
-                    <a href="/Website/Produse#aprinzator" class="text-decoration-none">APRINZĂTOR</a>
+                    <a href="/Website/Produse#carbuni" class="text-decoration-none link-header-important">CĂRBUNI</a>
+                    <a href="/Website/Produse#aprinzator" class="text-decoration-none link-header-important">APRINZĂTOR</a>
                 </nav>
             </div>
 
@@ -326,8 +368,8 @@
             <!-- ✅ Zona Dreapta: USTENSILE + LEMNE/LÂNĂ + cart -->
             <div class="header-section-dreapta d-flex align-items-center gap-1 flex-nowrap">
                 <nav class="d-flex gap-1 align-items-center text-uppercase fw-bold flex-nowrap">
-                    <a href="/Website/Produse#ustensile" class="text-decoration-none">USTENSILE</a>
-                    <a href="/Website/Produse#kit" class="text-decoration-none">LEMNE/LÂNĂ</a>
+                    <a href="/Website/Produse#ustensile" class="text-decoration-none link-header-important">USTENSILE</a>
+                    <a href="/Website/Produse#kit" class="text-decoration-none link-header-important">LEMNE/LÂNĂ</a>
                 </nav>
 
                 <a href="javascript:void(0)" class="cart-button" onclick="deschideCos()">
@@ -400,5 +442,6 @@
             document.getElementById("overlaySidebar").classList.remove("active");
         }
     </script>
+
 </body>
 </html>

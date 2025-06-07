@@ -13,178 +13,12 @@
     <meta property="og:image" content="https://carbune.ro/images/carbuni-preview.jpg" />
 }
 
-@* <style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        background: #fff;
-        height: auto;
-    }
-
-    .full-width-hero {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        min-height: 340px;
-        overflow: hidden;
-        background: #000;
-    }
-
-    .hero-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        z-index: 0;
-    }
-
-    .hero-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: white;
-        text-shadow: 2px 2px 5px black;
-        padding: 0 1rem;
-        z-index: 10;
-        opacity: 0;
-        animation: fadeSlideUp 1.2s ease-out forwards;
-    }
-
-        .hero-overlay h1 {
-            font-size: 2.6rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-overlay p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-overlay .btn {
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 0.75rem 2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 0 rgba(0,0,0,0);
-        }
-
-            .hero-overlay .btn:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-            }
-
-
-    .btn-primary {
-        background-color: #0069d9;
-        border-color: #0062cc;
-        color: #fff;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-
-    .play-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-        display: none;
-        pointer-events: none;
-        opacity: 0.8;
-    }
-
-        .play-overlay svg {
-            width: 68px;
-            height: 68px;
-            filter: drop-shadow(0 2px 10px #0007);
-        }
-
-    .sound-toggle {
-        position: absolute;
-        bottom: 28px;
-        right: 28px;
-        z-index: 10;
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 50%;
-        padding: 10px;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 56px;
-        height: 56px;
-    }
-
-        .sound-toggle:hover {
-            background: rgba(0, 0, 0, 0.85);
-        }
-
-        .sound-toggle img {
-            object-fit: contain;
-            transition: all 0.2s ease-in-out;
-        }
-
-    #muteIcon {
-        width: 36px;
-        height: 36px;
-    }
-
-    #unmuteIcon {
-        width: 48px;
-        height: 48px;
-    }
-
-
-    @@keyframes fadeSlideUp {
-        0%
-
-    {
-        opacity: 0;
-        transform: translate(-50%, -40%);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-
-    @@media (max-width: 600px) {
-        .hero-overlay h1
-
-    {
-        font-size: 1.25rem;
-    }
-
-    .hero-overlay p {
-        font-size: 0.95rem;
-    }
-
-    .hero-overlay {
-        padding: 1rem;
-    }
-
-    }
-</style> *@
-
 <style>
     :root {
         --albastru-site: #1f3b71;
+        --carousel-width: 480px;
+        --carousel-arrow-offset: 74px;
+        --carousel-arrow-size: 58px;
     }
 
     html, body {
@@ -192,8 +26,48 @@
         padding: 0;
         overflow-x: hidden;
         background: #fff;
+        min-height: 100vh;
         height: auto;
     }
+
+    .pause-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        background: none;
+        opacity: 1;
+    }
+
+    .pause-overlay[style*="display: none"] {
+        pointer-events: none !important;
+    }
+
+        .pause-overlay svg{
+            width: 70px !important;
+            height: 70px !important;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 8px #111b);
+            opacity: 0.97;
+        }
+
+        .pause-overlay .pause-icon {
+            width: 54px !important;
+            height: 54px !important;
+            color: #fff;
+            opacity: 0.93;
+            filter: drop-shadow(0 2px 6px #2227);
+            pointer-events: none;
+        }
+
 
     .full-width-hero {
         position: relative;
@@ -202,6 +76,7 @@
         min-height: 340px;
         overflow: hidden;
         background: #000;
+        margin-bottom: 1rem; /* sau chiar 4rem dacă vrei și mai mult spațiu */
     }
 
     .hero-video {
@@ -223,47 +98,45 @@
         text-align: center;
         color: white;
         text-shadow: 2px 2px 5px black;
-        padding: 0 1rem;
+        padding: 0 0vw; /* sau chiar 0! */
         z-index: 10;
         opacity: 0;
         animation: fadeSlideUp 1.2s ease-out forwards;
     }
 
         .hero-overlay h1 {
-            font-size: 2.6rem;
+            width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+            white-space: nowrap;
+            font-size: clamp(1rem, 4.7vw, 1.7rem); 
             font-weight: 900;
             text-transform: uppercase;
             margin-bottom: 0.5rem;
-            transition: transform 0.3s ease, color 0.3s ease;
+            line-height: 1.09;
+            letter-spacing: -0.5px;
+            color: #fff;
+            text-shadow: 2px 2px 6px #111b;
+            text-align: center;
+            padding: 0 2vw;
+            overflow: visible;
+            text-overflow: unset;
         }
 
-        /* .hero-overlay p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s ease, color 0.3s ease;
-        } */
-
         .hero-overlay p {
-            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            font-size: clamp(0.95rem, 2.7vw, 1.25rem);
             font-weight: 600;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
             transition: transform 0.3s ease, color 0.3s ease;
             white-space: normal !important;
-            overflow: visible !important;
-            text-overflow: unset !important;
             text-align: center !important;
             display: block !important;
             max-width: 100% !important;
+            line-height: 1.17;
         }
 
-
-
-
-            .hero-overlay h1:hover,
-            .hero-overlay p:hover {
+            .hero-overlay h1:hover, .hero-overlay p:hover {
                 transform: scale(1.05);
                 color: var(--albastru-site);
             }
@@ -348,50 +221,2795 @@
     }
 
     @@keyframes fadeSlideUp {
-        0%
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -40%);
+        }
 
-    {
-        opacity: 0;
-        transform: translate(-50%, -40%);
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
     }
 
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
+    /* --- CAROUSEL/SLIDER --- */
+    .carousel-outer {
+        position: relative;
+        max-width: var(--carousel-width);
+        margin: 48px auto 0 auto;
+        padding: 0 44px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
     }
 
-    }
-
-    @@media (max-width: 600px) {
-        .hero-overlay
-    {
-        padding: 1rem;
-        max-width: 100%;
+    .carousel-title-solo {
+        width: 100%;
         text-align: center;
-    }
-
-    .hero-overlay h1 {
-        font-size: 1.2rem;
-        font-weight: 800;
+        font-size: clamp(1.35rem, 6vw, 2.1rem); /* mai mare */
+        font-weight: 900;
         text-transform: uppercase;
-        white-space: nowrap;
-        overflow-wrap: break-word;
+        color: #232323;
+        margin: 0 auto;
+        letter-spacing: 0.01em;
+        line-height: 1.19;
+        padding: 1.25rem 0 0.35rem 0;
+        /* spațiu mai mare jos */
+        margin-bottom: clamp(1rem, 5vw, 2.4rem);
     }
 
-            .hero-overlay p {
-                font-size: 0.85rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                white-space: normal;
-                word-break: break-word;
-                overflow: visible;
-                text-overflow: unset;
-                line-height: 1.4;
+    .carousel-stars-row {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-top: -14px;
+        margin-bottom: 0.5rem;
+        padding-right: 8px;  /* să fie spre dreapta */
+        min-height: 32px;
+    }
+
+    .carousel-stars-inline {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 1.01rem;
+        font-weight: 700;
+    }
+
+    .stars {
+        color: #f5b904;
+        font-size: 1.02em;
+        letter-spacing: 0.03em;
+        font-weight: 700;
+    }
+
+    .review-rating {
+        color: #222;
+        font-size: 1em;
+        font-weight: 700;
+        margin: 0 4px;
+        min-width: 2ch; /* să nu se suprapună niciodată */
+        letter-spacing: 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .carousel-review-count {
+        color: #222;
+        font-size: 1em;
+        font-weight: 700;
+        margin-left: 2px;
+    }
+
+
+    .carousel-review-count {
+        color: #222;
+        font-size: 1.11rem;
+        font-weight: 700 !important;
+        margin-left: 6px;
+        white-space: nowrap;
+        text-shadow: 0 1px 0 #fff, 0 2px 4px #eee6;
+    }
+
+    .carousel-wrapper {
+        width: 100%;
+        max-width: 570px;
+        min-height: 540px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .product-review-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 14px rgba(0,0,0,0.11);
+        padding: 0;
+        width: 100%;
+        max-width: 540px;
+        margin: 0 auto;
+        overflow: hidden;
+        font-family: 'Inter', Arial, sans-serif;
+        transition: box-shadow 0.2s;
+        position: relative;
+        z-index: 1;
+    }
+
+    .video-thumbnail-container {
+        width: 100vw !important;
+        aspect-ratio: 16 / 10 !important; /* mai înalt decât 16/9, dar nu cât 1:1 */
+        margin: 0 auto !important;
+        padding: 0 !important;
+        background: #fff !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 0 !important;
+        margin-bottom: max(clamp(1.2rem, 6vw, 2.8rem), 4vh) !important;
+    }
+
+    #productVideo {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+    }
+
+    .pret-marketing {
+        display: flex;
+        align-items: baseline; /* ca să fie totul pe linie */
+        justify-content: center;
+        gap: 10px;
+        margin: 15px 0 7px 0;
+        font-family: inherit;
+        flex-wrap: wrap;
+    }
+
+    .detaliu-cutie {
+        font-weight: 700;
+        font-size: 1.13rem;
+        color: #232323;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        margin-right: 2px;
+        /* Poți pune și background subtil sau border, dacă vrei efect extra */
+    }
+
+    .egal {
+        font-size: 1.13rem;
+        font-weight: 700;
+        color: #232323;
+        margin-right: 3px;
+    }
+
+    .pret-vechi {
+        color: #bbb;
+        font-size: 1.09rem;
+        font-weight: 500;
+        position: relative;
+        text-decoration: line-through;
+        margin-right: 1px;
+    }
+
+    .pret-nou {
+        color: #0069d9 !important;
+        font-size: 1.15rem; /* Normal, nu imens */
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        display: inline-flex;
+        align-items: flex-start;
+        vertical-align: baseline;
+        margin-left: 1px !important;
+    }
+
+        .pret-nou small {
+            font-size: 0.62em; /* Zecimala mult mai mică! */
+            font-weight: 700;
+            margin-left: 0.5px;
+            margin-top: 7px;
+            line-height: 1;
+            vertical-align: super;
+        }
+
+
+
+    .review-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        font-size: 1.04rem;
+        line-height: 1.37;
+        font-weight: 400;
+        margin: 10px 0 0 0;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: 600; /* <--- BOLD! */
+        font-style: italic;
+    }
+
+    .review-content {
+    padding: 24px 0 12px 0;    /* FĂRĂ padding stânga/dreapta! */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.review-row-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 4px;
+    margin: 0;
+    margin-top: clamp(0.42em, 2.6vw, 1.25em) !important; 
+    font-size: 0.84em; /
+    gap: 0;
+}
+.review-right {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.read-more {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    white-space: nowrap;
+    color: #005eff;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.review-author {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: inherit;
+    margin: 0;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+.verified-badge {
+    background: #eafbe7;
+    color: #25a244;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.81em;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    padding: 1.5px 6px 1.5px 3.5px;
+    margin-left: 0;
+    margin-right: 0;
+    box-shadow: 0 2px 6px #1e772215;
+    vertical-align: middle;
+    flex-shrink: 1;
+}
+.verified-badge::after {
+    content: '✔';
+    margin-left: 2px;
+    font-size: 1em;
+    color: #25a244;
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    top: 0.5px;
+}
+
+
+
+    .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #f5f6fb;
+        border: none;
+        border-radius: 50%;
+        font-size: 2.3rem;
+        width: var(--carousel-arrow-size);
+        height: var(--carousel-arrow-size);
+        box-shadow: 0 2px 12px rgba(30,30,80,0.09);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        z-index: 5;
+        outline: none;
+        user-select: none;
+    }
+
+        .carousel-arrow.prev {
+            left: calc(-1 * var(--carousel-arrow-offset));
+        }
+
+        .carousel-arrow.next {
+            right: calc(-1 * var(--carousel-arrow-offset));
+        }
+
+        .carousel-arrow:hover, .carousel-arrow:focus {
+            background: #e1e3f3;
+            transform: translateY(-50%) scale(1.19);
+            box-shadow: 0 6px 24px 0 rgba(51,51,170,0.18);
+        }
+
+        .carousel-arrow .arrow-icon {
+            width: 64%; /* săgeata să ocupe 64% din cerc, proporțional */
+            height: 64%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel-arrow svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        .cumpara-cardProdus-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(1.1em, 4vw, 2em);
+    margin-bottom: clamp(1.15em, 4vw, 2em);
+}
+
+.btn-cumpara-cardProdus {
+    background: #1659e4;
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(1.01em, 4.2vw, 1.14em);
+    padding: 0.7em 2.5em;
+    border-radius: 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    border: none;
+    outline: none;
+    text-align: center;
+    box-shadow: 0 2px 12px #1659e422;
+    transition: background 0.16s, transform 0.15s;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1.1;
+    text-decoration: none !important;  /* Fără underline pe TOATE device-urile */
+}
+
+.btn-cumpara-cardProdus:hover,
+.btn-cumpara-cardProdus:focus {
+    background: #0d328a;
+    color: #fff;
+    transform: scale(1.04);
+    text-decoration: none;
+}
+
+
+    .hero-title-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0.55rem;
+    }
+
+
+    .hero-title-nowrap {
+        width: 100%;
+        white-space: nowrap;
+        font-size: clamp(0.5rem, 5.8vw, 1.3rem) !important;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        line-height: 1.1;
+        text-shadow: 2px 2px 6px #111b;
+        letter-spacing: -0.5px;
+        overflow: visible !important;
+        text-overflow: unset !important;
+    }
+
+
+    .hero-subtitle-nowrap {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: clamp(0.95rem, 3.4vw, 1.16rem);
+        font-weight: 600;
+        color: #fff;
+        text-shadow: 1px 1px 3px #222b;
+        text-transform: uppercase;
+        line-height: 1.14;
+    }
+
+
+    .hero-line {
+        display: block;
+        white-space: nowrap;
+        font-size: clamp(1.4rem, 8vw, 2.6rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.13;
+        letter-spacing: -0.5px;
+        color: #fff;
+        text-shadow: 2px 2px 6px #111b;
+    }
+
+
+    .hero-subtitle-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+
+    .hero-subline {
+        display: block;
+        white-space: nowrap;
+        font-size: clamp(0.92rem, 3vw, 1.15rem);
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow: 1px 1px 3px #222b;
+        line-height: 1.08;
+    }
+
+    /* Container mobil fullscreen */
+    .carousel-mobile-full {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
+        padding: 0 0 18px 0;
+        margin-top: 18px;
+    }
+
+
+    .carousel-review-count {
+        color: #222;
+        font-size: 1.10rem;
+        font-weight: 700 !important;
+        margin-left: 6px;
+        text-shadow: 0 1px 0 #fff, 0 2px 4px #eee6;
+    }
+
+    /* Video extra mare pe mobil */
+    .carousel-video-area {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Adaugă pentru a ieși din eventuale containere cu padding */
+        margin-left: calc(-1 * ((100vw - 100%) / 2)) !important;
+        margin-right: calc(-1 * ((100vw - 100%) / 2)) !important;
+    }
+
+    
+
+    .carousel-video-wrapper {
+        position: relative;
+        width: 100vw;
+        max-width: 600px;
+        min-height: 280px;
+        height: 54vw;
+        max-height: 420px;
+        overflow: hidden;
+        border-radius: 18px;
+        background: #fff;
+        margin: 0 auto 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    #productVideo {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 100vw !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+        min-height: 280px;
+        max-height: 420px;
+        object-fit: cover !important;
+        background: #fff;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block;
+    }
+
+
+    /* Pauză overlay */
+    
+
+    .carousel-review-content {
+        padding: 18px 18px 0 18px;
+    }
+
+    /* De aici am scos codul */
+    
+
+    @@media (min-width: 768px) {
+        #productVideo {
+            aspect-ratio: 16 / 5; /* mai înalt pe desktop */
+        }
+    }
+
+    /* === DEVICE-SPECIFIC MEDIA QUERIES === */
+
+    /* iPhone SE old (320×568, portrait) */
+    @@media (device-width: 320px) and (device-height: 568px) and (orientation: portrait) {
+        /* =========================
+           VIDEO / THUMBNAIL
+           ========================= */
+        .video-thumbnail-container {
+            width: 100% !important;
+            max-width: 175px !important; /* redus cu 20% față de 220px */
+            height: 80px !important;
+            min-height: 90px !important;
+            max-height: 8vw !important; /* și mai mic */
+            aspect-ratio: 1/1.72 !important;
+            margin: 0 auto clamp(0.4rem, 2vw, 1rem) !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            border-radius: 9px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #fff !important;
+        }
+            /* Asigurăm că video-ul rămâne la aceleași dimensiuni */
+            #productVideo,
+            .video-thumbnail-container video {
+                width: 100% !important;
+                max-width: 175px !important; /* la fel ca thumbnail-container */
+                height: 80px !important;
+                min-height: 90px !important;
+                max-height: 8vw !important; /* și mai mic */
+                aspect-ratio: 1/1.72 !important;
+                object-fit: cover !important;
+                display: block !important;
+                border-radius: 9px !important;
+                background: #fff !important;
+                margin: 0 auto !important;
+            }
+        /* =========================
+           TEXT DE REVIEW
+           ========================= */
+        /* Resetăm orice „font-size” redus din media-queries generale */
+        .review-content {
+            font-size: 1.11rem !important; /* valoarea originală din max-width:600px */
+            line-height: 1.53 !important;
+            padding: 10px 0 20px 0 !important; /* păstrăm padding-ul de la max-width:600px */
+            text-align: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .review-text {
+            font-size: 1.04rem !important; /* valoarea originală din max-width:600px */
+            line-height: 1.37 !important;
+            font-weight: 600 !important; /* rămâne bold */
+            margin: 10px 0 0 0 !important;
+            text-align: center !important;
+            font-style: italic !important;
+        }
+
+        .review-row-flex {
+            font-size: 0.84em !important; /* reinstaurăm font-size-ul din max-width:600px */
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            padding: 0 4px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .review-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 2px !important;
+        }
+
+        .read-more {
+            font-size: inherit !important; /* reinstaurăm dimensiunea normală */
+            white-space: nowrap !important;
+            color: #005eff !important;
+            font-weight: 500 !important;
+            text-decoration: underline !important;
+            cursor: pointer !important;
+        }
+
+        .review-author {
+            font-weight: bold !important;
+            text-transform: uppercase !important;
+            font-size: inherit !important;
+            letter-spacing: 0.01em !important;
+            white-space: nowrap !important;
+            margin: 0 !important;
+        }
+
+        .verified-badge {
+            font-size: 0.81em !important; /* reinstaurăm dimensiunea originală */
+            padding: 1.5px 6px !important;
+        }
+        /* =========================
+           BUTON „CUMPARĂ ACUM!”
+           ========================= */
+        .cumpara-cardProdus-wrapper {
+            margin-top: clamp(1.2em, 7vw, 2.5em) !important;
+            margin-bottom: clamp(1.3em, 6vw, 2.5em) !important;
+        }
+
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.09em, 6vw, 1.2em) !important; /* reinstaurăm dimensiunea originală */
+            padding: 0.85em 2.1em !important;
+            border-radius: 34px !important;
+        }
+    }
+
+
+    /* Samsung Galaxy S8+ (360×740, portrait) */
+    @@media (device-width: 360px) and (device-height: 740px) and (orientation: portrait) {
+        /* Înălțim video-ul pentru acest device */
+        #productVideo,
+        .video-thumbnail-container,
+        .video-thumbnail-container video {
+            aspect-ratio: 1/0.56 !important; /* mult mai lung (cu 60% față de inițial) */
+            max-height: 170vw !important; /* crește la 170vw să fie sigur */
+            min-height: 220px !important; /* forțează să fie mereu mare */
+        }
+        /* Ajustăm padding-ul butonului „CUMPARĂ ACUM!” */
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.09em, 6vw, 1.2em) !important; /* păstrăm textul la aceeași dimensiune */
+            padding: 0.8em 2em !important; /* buton puțin mai mic */
+            border-radius: 34px !important;
+        }
+    }
+
+
+
+    /* Samsung Galaxy A51 / A71 (412×914, portrait) */
+    @@media (device-width: 412px) and (device-height: 914px) and (orientation: portrait) {
+        .video-thumbnail-container {
+            max-height: 140vw !important; /* video mult mai mare */
+            aspect-ratio: 1/0.83 !important; /* foarte lat, efect "big thumbnail" */
+        }
+    }
+
+    /* Samsung Galaxy S20 Ultra (412×915, portrait) */
+    @@media (device-width: 412px) and (device-height: 915px) and (orientation: portrait) {
+        .video-thumbnail-container,
+        #productVideo, .video-thumbnail-container video {
+            aspect-ratio: 1/0.95 !important;
+            min-height: 310px !important;
+            max-height: 98vw !important;
+        }
+
+        .pret-marketing, .detaliu-cutie, .egal, .pret-vechi, .pret-nou {
+            font-size: 1.12em !important;
+        }
+
+        .review-content, .review-text {
+            font-size: 1.12em !important;
+        }
+    }
+
+    @@media
+    /* 1- XR aproximativ în CSS pixels: 414×896 */
+    (
+            (max-width: 414px) and (max-height: 896px) and (orientation: portrait)
+          ),
+    /* 2- iPhone 14 Pro Max (device-width 430×932, portrait) */
+    (
+            (device-width: 430px) and (device-height: 932px) and (orientation: portrait)
+          ) {
+        /* =========================================
+             VIDEO / THUMBNAIL (acum +20% față de default 16:9)
+             ========================================= */
+        .video-thumbnail-container,
+        #productVideo,
+        .video-thumbnail-container video {
+            aspect-ratio: 1/0.88 !important; /* puțin mai lat decât pătrat (aprox. +20%) */
+            min-height: 330px !important; /* forțăm minimul la 330px */
+            max-height: 118vw !important; /* aprox. +20% peste 98vw default */
+            margin-bottom: 1.8rem !important; /* spațiu generos sub video ca să vezi diferența */
+        }
+        /* =========================================
+             CREȘTE SPAȚIUL ÎNTRE VIDEO ȘI LINIA „CUTIE 3 KG”
+             ========================================= */
+        .pret-marketing {
+            margin-top: 5rem !important; /* spațiu mare doar pentru confirmare */
+        }
+    }
+
+
+
+    /* iPhone 16 Pro Max – estimativ (460×1000, portrait) */
+    @@media (device-width: 460px) and (device-height: 1000px) and (orientation: portrait) {
+        .video-thumbnail-container,
+        #productVideo, .video-thumbnail-container video {
+            aspect-ratio: 1/1 !important;
+            min-height: 350px !important;
+            max-height: 100vw !important;
+        }
+
+        .hero-title, .review-text {
+            font-size: 1.22em !important;
+        }
+    }
+
+
+    /* === WIDTH-BASED MEDIA QUERIES === */
+
+    /* max-width: 400px */
+    @@media (max-width: 400px) {
+        #productVideo,
+        .video-thumbnail-container,
+        .video-thumbnail-container video {
+            aspect-ratio: 1/0.97 !important;
+            height: auto !important;
+            max-height: 85vw !important; /* crește și max-height */
+            min-height: 120px !important;
+        }
+    }
+
+    /* max-width: 440px */
+    @@media (max-width: 440px) {
+
+        .hero-title {
+            font-size: clamp(1rem, 4vw, 1.22rem) !important;
+            padding: 0 2vw !important;
+            margin-bottom: clamp(0.01em, 0.7vw, 0.12em) !important; /* era 0.18-0.39em, acum e foarte mic */
+            letter-spacing: 0.015em;
+            line-height: 1.1;
+        }
+
+        .hero-title-nowrap {
+            font-size: clamp(0.5rem, 5.8vw, 1.3rem) !important;
+            padding: 0 2vw !important;
+            margin-bottom: clamp(0.01em, 0.7vw, 0.12em) !important; /* era 0.18-0.39em, acum e foarte mic */
+            letter-spacing: 0.015em;
+            line-height: 1.1;
+        }
+
+        .carousel-title-solo {
+            margin-bottom: clamp(0.05em, 0.7vw, 0.12em) !important;
+        }
+
+        .carousel-stars-inline {
+            margin-top: 0 !important;
+            margin-bottom: 0.05em !important; /* minim spațiu sub titlu */
+            font-size: clamp(0.92em, 3.5vw, 0.99em) !important;
+        }
+
+        .carousel-review-count {
+            font-size: clamp(0.89em, 3vw, 0.96em) !important;
+            margin-left: 2vw !important;
+        }
+
+        .video-thumbnail-container {
+            aspect-ratio: 1/0.29 !important; /* și mai înalt decât 1/0.48, adică 1 lățime la 3.125 înălțime! */
+            max-height: 330vw !important; /* de 3x lățimea, extrem de mare pe mobil */
+            min-height: 470px !important; /* minim masiv pe orice device */
+            border-radius: 10px !important;
+            margin-bottom: clamp(0.7rem, 2vw, 1.2rem) !important;
+        }
+
+            #productVideo, .video-thumbnail-container video {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                min-height: unset !important;
+                max-height: unset !important;
+            }
+
+        .review-content {
+            font-size: clamp(0.90em, 2.8vw, 1.02em) !important;
+            padding: 8px 0 13px 0 !important;
+        }
+
+        .pret-marketing, .detaliu-cutie, .egal, .pret-vechi {
+            font-size: clamp(0.90em, 2.8vw, 1.01em) !important;
+        }
+
+        .pret-nou {
+            color: #0069d9 !important;
+            font-size: 1.15rem; /* Normal, nu imens */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: flex-start;
+            vertical-align: baseline;
+        }
+
+            .pret-nou small {
+                font-size: 0.62em; /* Zecimală mult mai mică! */
+                font-weight: 700;
+                margin-left: 0.5px;
+                margin-top: 7px;
+                line-height: 1;
+                vertical-align: super;
+            }
+
+        .review-text {
+            font-size: clamp(1em, 3.4vw, 1.16em) !important; /* cu 20% mai mare decât 0.83em */
+            margin-bottom: clamp(0.47em, 3.2vw, 1.23em) !important; /* AICI e spațiul MĂRIT! */
+            line-height: 1.32;
+            text-align: center;
+        }
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 3px;
+            margin: 0;
+            margin-top: clamp(0.35em, 2.2vw, 0.8em) !important;
+            font-size: clamp(0.73em, 2.9vw, 0.88em) !important;
+            gap: 0;
+        }
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2.5px;
+            margin: 0;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            vertical-align: middle;
+            white-space: nowrap;
+            margin-right: 0.7vw;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.63em !important; /* mai mic decât restul */
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 2px 5px 2px 4px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 1.5px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
+            }
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: clamp(1.2em, 8vw, 2.7em);
+            margin-bottom: clamp(1.4em, 8vw, 2.7em);
+        }
+
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.13em, 7vw, 1.23em);
+            padding: 0.97em 1.75em;
+            border-radius: 31px;
+        }
+    }
+
+    /* max-width: 600px */
+    @@media (max-width: 600px) {
+
+        .carousel-outer {
+            width: 100vw;
+            max-width: 100vw;
+            min-width: 100vw;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        .carousel-review-count {
+            color: #222;
+            font-size: 0.95em;
+            margin-left: 2px;
+            font-weight: 700 !important;
+            text-shadow: 0 1px 0 #fff, 0 2px 4px #eee6;
+        }
+
+        .carousel-wrapper {
+            width: 100vw;
+            max-width: 100vw;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .carousel-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f6fb;
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.11);
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+            .carousel-arrow.prev {
+                left: 0 !important;
+                right: auto !important;
+            }
+
+            .carousel-arrow.next {
+                right: 0vw !important;
+                left: auto !important;
+            }
+
+            .carousel-arrow .arrow-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 66%;
+                height: 66%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .carousel-arrow.prev .arrow-icon {
+                transform: translateX(-8%);
+            }
+
+            .carousel-arrow.next .arrow-icon {
+                transform: translateX(8%);
+            }
+
+            .carousel-arrow svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+        .product-review-card {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            min-height: 100vh !important; /* obligă cardul să umple ecranul */
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        /* VIDEO/IMG CONTAINER */
+        .video-thumbnail-container {
+            position: relative !important;
+            width: 100vw !important;
+            aspect-ratio: 4/5 !important; /* puțin mai scurt decât pătrat */
+            max-height: 75vh !important;
+            min-height: 260px !important;
+            margin: 0 auto 0 auto !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            margin-bottom: max(clamp(1.2rem, 6vw, 2.8rem), 4vh) !important;
+        }
+
+            .video-thumbnail-container video,
+            .video-thumbnail-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                background: #fff;
+                display: block;
+            }
+
+        #productVideo {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: unset !important;
+            max-height: unset !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block !important;
+            border-radius: 0 !important;
+            object-fit: cover !important;
+            background: #fff !important;
+        }
+        /* TEXTUL DE REVIEW */
+        .review-content {
+            padding: 10px 0 20px 0 !important; /* fără padding lateral */
+            font-size: 1.11rem !important;
+            line-height: 1.53 !important;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin: 0;
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            font-size: 0.84em;
+            / gap: 0;
+        }
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+            transition: color 0.18s, filter 0.18s;
+        }
+
+            .read-more:hover, .read-more:focus, .read-more:active {
+                color: #003a9e;
+                text-decoration: underline;
+                filter: brightness(1.22);
+            }
+
+            .read-more:focus-visible {
+                outline: 2px solid #004cb6;
+                outline-offset: 2px;
+            }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.81em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 1.5px 6px 1.5px 3.5px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 2px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
+            }
+
+
+        .review-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            font-size: 1.04rem;
+            line-height: 1.37;
+            font-weight: 600; /* BOLD */
+            margin: 10px 0 0 0;
+            text-align: center;
+            vertical-align: middle;
+            font-style: italic;
+        }
+        /* Spațiu mare sub card, ca să nu fie lipit de secțiunea următoare */
+        .product-review-card > * {
+            margin: 0 !important;
+        }
+
+
+
+
+        .hero-title {
+            width: 100%;
+            white-space: nowrap;
+            font-size: clamp(0.7rem, 4vw, 1.19rem);
+            font-weight: 800;
+            line-height: 1.1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 7px rgba(0,0,0,0.21);
+            box-sizing: border-box;
+            padding: 0 2vw;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .pret-marketing {
+            gap: 7px;
+            margin: 13px 0 4px 0;
+        }
+
+        .detaliu-cutie,
+        .egal {
+            font-size: 1.03rem;
+        }
+
+        .pret-vechi {
+            font-size: 1.03rem;
+            margin-right: 1px !important;
+        }
+
+        .pret-nou {
+            color: #0069d9 !important;
+            font-size: 1.15rem; /* Normal, nu imens */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: flex-start;
+            vertical-align: baseline;
+            margin-left: 1px !important;
+        }
+
+            .pret-nou small {
+                font-size: 0.62em; /* Zecimala mult mai mică! */
+                font-weight: 700;
+                margin-left: 0.5px;
+                margin-top: 7px;
+                line-height: 1;
+                vertical-align: super;
+            }
+
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: clamp(1.2em, 7vw, 2.5em);
+            margin-bottom: clamp(1.3em, 6vw, 2.5em);
+        }
+
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.09em, 6vw, 1.2em);
+            padding: 0.85em 2.1em;
+            border-radius: 34px;
+        }
+    }
+
+    /* max-width: 900px */
+    @@media (max-width: 900px) {
+        .carousel-outer {
+            max-width: 98vw;
+        }
+
+        .carousel-wrapper {
+            max-width: 98vw;
+        }
+
+        .carousel-arrow.prev {
+            left: -12vw;
+        }
+
+        .carousel-arrow.next {
+            right: -12vw;
+        }
+    }
+
+    /* max-width: 600px */
+    @@media (max-width: 600px) {
+
+        .carousel-outer {
+            width: 100vw;
+            max-width: 100vw;
+            min-width: 100vw;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        .carousel-review-count {
+            color: #222;
+            font-size: 0.95em;
+            margin-left: 2px;
+            font-weight: 700 !important;
+            text-shadow: 0 1px 0 #fff, 0 2px 4px #eee6;
+        }
+
+        .carousel-wrapper {
+            width: 100vw;
+            max-width: 100vw;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .carousel-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f6fb;
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.11);
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+            .carousel-arrow.prev {
+                left: 0 !important;
+                right: auto !important;
+            }
+
+            .carousel-arrow.next {
+                right: 0vw !important;
+                left: auto !important;
+            }
+
+            .carousel-arrow .arrow-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 66%;
+                height: 66%;
+                margin: 0;
+                padding: 0
+            }
+
+            .carousel-arrow.prev .arrow-icon {
+                transform: translateX(-8%);
+            }
+
+            .carousel-arrow.next .arrow-icon {
+                transform: translateX(8%);
+            }
+
+            .carousel-arrow svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+        .product-review-card {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            min-height: 100vh !important; /* obligă cardul să umple ecranul */
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        /* VIDEO/IMG CONTAINER */
+        .video-thumbnail-container {
+            position: relative !important;
+            width: 100vw !important;
+            aspect-ratio: 4/5 !important; /* puțin mai scurt decât pătrat */
+            max-height: 75vh !important;
+            min-height: 260px !important;
+            margin: 0 auto 0 auto !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            margin-bottom: max(clamp(1.2rem, 6vw, 2.8rem), 4vh) !important;
+        }
+
+            .video-thumbnail-container video,
+            .video-thumbnail-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                background: #fff;
+                display: block;
+            }
+
+        #productVideo {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: unset !important;
+            max-height: unset !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block !important;
+            border-radius: 0 !important;
+            object-fit: cover !important;
+            background: #fff !important;
+        }
+        /* TEXTUL DE REVIEW */
+        .review-content {
+            padding: 10px 0 20px 0 !important; /* fără padding lateral */
+            font-size: 1.11rem !important;
+            line-height: 1.53 !important;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin: 0;
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            font-size: 0.84em;
+            / gap: 0;
+        }
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+            transition: color 0.18s, filter 0.18s;
+        }
+
+            .read-more:hover, .read-more:focus, .read-more:active {
+                color: #003a9e;
+                text-decoration: underline;
+                filter: brightness(1.22);
+            }
+
+            .read-more:focus-visible {
+                outline: 2px solid #004cb6;
+                outline-offset: 2px;
+            }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.81em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 1.5px 6px 1.5px 3.5px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 2px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
+            }
+
+
+
+        .review-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            font-size: 1.04rem;
+            line-height: 1.37;
+            font-weight: 600; /* BOLD */
+            margin: 10px 0 0 0;
+            text-align: center;
+            vertical-align: middle;
+            font-style: italic;
+        }
+        /* Spațiu mare sub card, ca să nu fie lipit de secțiunea următoare */
+        .product-review-card > * {
+            margin: 0 !important;
+        }
+
+
+
+
+        .hero-title {
+            width: 100%;
+            white-space: nowrap;
+            font-size: clamp(0.7rem, 4vw, 1.19rem);
+            font-weight: 800;
+            line-height: 1.1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 7px rgba(0,0,0,0.21);
+            box-sizing: border-box;
+            padding: 0 2vw;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .pret-marketing {
+            gap: 7px;
+            margin: 13px 0 4px 0;
+        }
+
+        .detaliu-cutie,
+        .egal {
+            font-size: 1.03rem;
+        }
+
+        .pret-vechi {
+            font-size: 1.03rem;
+            margin-right: 1px !important;
+        }
+
+        .pret-nou {
+            color: #0069d9 !important;
+            font-size: 1.15rem; /* Normal, nu imens */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: flex-start;
+            vertical-align: baseline;
+            margin-left: 1px !important;
+        }
+
+            .pret-nou small {
+                font-size: 0.62em; /* Zecimala mult mai mică! */
+                font-weight: 700;
+                margin-left: 0.5px;
+                margin-top: 7px;
+                line-height: 1;
+                vertical-align: super;
+            }
+
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: clamp(1.2em, 7vw, 2.5em);
+            margin-bottom: clamp(1.3em, 6vw, 2.5em);
+        }
+
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.09em, 6vw, 1.2em);
+            padding: 0.85em 2.1em;
+            border-radius: 34px;
+        }
+    }
+
+    /* min-width: 601px */
+    @@media (min-width: 601px) {
+        .carousel-outer {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 2px 22px 0 rgba(0,0,0,0.06);
+            padding: 0;
+        }
+
+        .carousel-wrapper {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 0 28px 0;
+        }
+
+        .product-review-card {
+            max-width: 520px;
+            margin: 0 auto 60px auto;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+            padding: 34px 0 38px 0;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-thumbnail-container {
+            aspect-ratio: 1/0.56 !important; /* ERA ~1/1.18, acum aproape 16/9 landscape (mai înalt) */
+            max-height: 98vw !important; /* aproape cât latimea ecranului */
+            min-height: 200px !important; /* puțin mai mare minimul, crește cât ecranul */
+            border-radius: 10px !important;
+            margin-bottom: clamp(0.7rem, 2vw, 1.2rem) !important;
+        }
+
+        .review-content {
+            padding: 18px 0 16px 0 !important; /* Fără padding lateral! */
+            font-size: 1.06rem !important;
+            line-height: 1.44 !important;
+            min-height: 80px;
+            height: auto !important;
+            overflow: visible !important;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin: 0;
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            font-size: 0.84em;
+            / gap: 0;
+        }
+
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.81em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 1.5px 6px 1.5px 3.5px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 2px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
             }
     }
+
+    /* max-width: 900px */
+    @@media (max-width: 900px) {
+        .carousel-outer {
+            max-width: 98vw;
+        }
+
+        .carousel-wrapper {
+            max-width: 98vw;
+        }
+
+        .carousel-arrow.prev {
+            left: -12vw;
+        }
+
+        .carousel-arrow.next {
+            right: -12vw;
+        }
+    }
+
+    /* max-width: 600px */
+    @@media (max-width: 600px) {
+        .carousel-outer {
+            width: 100vw;
+            max-width: 100vw;
+            min-width: 100vw;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        .carousel-review-count {
+            color: #222;
+            font-size: 0.95em;
+            margin-left: 2px;
+            font-weight: 700 !important;
+            text-shadow: 0 1px 0 #fff, 0 2px 4px #eee6;
+        }
+
+        .carousel-wrapper {
+            width: 100vw;
+            max-width: 100vw;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .carousel-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f5f6fb;
+            border: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.11);
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+            .carousel-arrow.prev {
+                left: 0 !important;
+                right: auto !important;
+            }
+
+            .carousel-arrow.next {
+                right: 0vw !important;
+                left: auto !important;
+            }
+
+            .carousel-arrow .arrow-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 66%;
+                height: 66%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .carousel-arrow.prev .arrow-icon {
+                transform: translateX(-8%);
+            }
+
+            .carousel-arrow.next .arrow-icon {
+                transform: translateX(8%);
+            }
+
+            .carousel-arrow svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+        .product-review-card {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            min-height: 100vh !important; /* obligă cardul să umple ecranul */
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .video-thumbnail-container {
+            position: relative !important;
+            width: 100vw !important;
+            aspect-ratio: 4/5 !important; /* puțin mai scurt decât pătrat */
+            max-height: 75vh !important;
+            min-height: 260px !important;
+            margin: 0 auto 0 auto !important;
+            border-radius: 0 !important;
+            background: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            margin-bottom: max(clamp(1.2rem, 6vw, 2.8rem), 4vh) !important;
+        }
+
+            .video-thumbnail-container video,
+            .video-thumbnail-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                background: #fff;
+                display: block;
+            }
+
+        #productVideo {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: unset !important;
+            max-height: unset !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block !important;
+            border-radius: 0 !important;
+            object-fit: cover !important;
+            background: #fff !important;
+        }
+
+        .review-content {
+            padding: 10px 0 20px 0 !important; /* fără padding lateral */
+            font-size: 1.11rem !important;
+            line-height: 1.53 !important;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin: 0;
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            font-size: 0.84em;
+            / gap: 0;
+        }
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+            transition: color 0.18s, filter 0.18s;
+        }
+
+            .read-more:hover, .read-more:focus, .read-more:active {
+                color: #003a9e;
+                text-decoration: underline;
+                filter: brightness(1.22);
+            }
+
+            .read-more:focus-visible {
+                outline: 2px solid #004cb6;
+                outline-offset: 2px;
+            }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.81em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 1.5px 6px 1.5px 3.5px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 2px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
+            }
+
+        .review-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            font-size: 1.04rem;
+            line-height: 1.37;
+            font-weight: 600; /* BOLD */
+            margin: 10px 0 0 0;
+            text-align: center;
+            vertical-align: middle;
+            font-style: italic;
+        }
+
+        .product-review-card > * {
+            margin: 0 !important;
+        }
+
+        .hero-title {
+            width: 100%;
+            white-space: nowrap;
+            font-size: clamp(0.7rem, 4vw, 1.19rem);
+            font-weight: 800;
+            line-height: 1.1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 7px rgba(0,0,0,0.21);
+            box-sizing: border-box;
+            padding: 0 2vw;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .pret-marketing {
+            gap: 7px;
+            margin: 13px 0 4px 0;
+        }
+
+        .detaliu-cutie,
+        .egal {
+            font-size: 1.03rem;
+        }
+
+        .pret-vechi {
+            font-size: 1.03rem;
+            margin-right: 1px !important;
+        }
+
+        .pret-nou {
+            color: #0069d9 !important;
+            font-size: 1.15rem; /* Normal, nu imens */
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: flex-start;
+            vertical-align: baseline;
+            margin-left: 1px !important;
+        }
+
+            .pret-nou small {
+                font-size: 0.62em; /* Zecimala mult mai mică! */
+                font-weight: 700;
+                margin-left: 0.5px;
+                margin-top: 7px;
+                line-height: 1;
+                vertical-align: super;
+            }
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: clamp(1.2em, 7vw, 2.5em);
+            margin-bottom: clamp(1.3em, 6vw, 2.5em);
+        }
+
+        .btn-cumpara-cardProdus {
+            font-size: clamp(1.09em, 6vw, 1.2em);
+            padding: 0.85em 2.1em;
+            border-radius: 34px;
+        }
+    }
+
+    /* min-width: 601px */
+    @@media (min-width: 601px) {
+        .carousel-outer {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 2px 22px 0 rgba(0,0,0,0.06);
+            padding: 0;
+        }
+
+        .carousel-wrapper {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 0 28px 0;
+        }
+
+        .product-review-card {
+            max-width: 520px;
+            margin: 0 auto 60px auto;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+            padding: 34px 0 38px 0;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-thumbnail-container {
+            aspect-ratio: 1/0.56 !important; /* ERA ~1/1.18, acum aproape 16/9 landscape (mai înalt) */
+            max-height: 98vw !important; /* aproape cât latimea ecranului */
+            min-height: 200px !important; /* puțin mai mare minimul, crește cât ecranul */
+            border-radius: 10px !important;
+            margin-bottom: clamp(0.7rem, 2vw, 1.2rem) !important;
+        }
+
+        .review-content {
+            padding: 18px 0 16px 0 !important; /* Fără padding lateral! */
+            font-size: 1.06rem !important;
+            line-height: 1.44 !important;
+            min-height: 80px;
+            height: auto !important;
+            overflow: visible !important;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .review-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin: 0;
+            margin-top: clamp(0.42em, 2.6vw, 1.25em) !important;
+            font-size: 0.84em;
+            / gap: 0;
+        }
+
+        .review-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .read-more {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            white-space: nowrap;
+            color: #005eff;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .review-author {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: inherit;
+            margin: 0;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .verified-badge {
+            background: #eafbe7;
+            color: #25a244;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.81em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+            padding: 1.5px 6px 1.5px 3.5px;
+            margin-left: 0;
+            margin-right: 0;
+            box-shadow: 0 2px 6px #1e772215;
+            vertical-align: middle;
+            flex-shrink: 1;
+        }
+
+            .verified-badge::after {
+                content: '✔';
+                margin-left: 2px;
+                font-size: 1em;
+                color: #25a244;
+                font-weight: bold;
+                vertical-align: middle;
+                display: inline-block;
+                position: relative;
+                top: 0.5px;
+            }
+    }
+
+    /* =========================================
+       TELEFOANE MICI (≤ 375px LĂȚIME)
+       • VIDEO (cu +20% peste +20% anterior, deci +44% față de 16:9 standard)
+       • BUTON “CUMPĂRĂ ACUM!” (–15% lățime, colțuri rotunjite)
+       ========================================= */
+    @@media (max-width: 375px) {
+        .video-thumbnail-container {
+            width: 100% !important;
+            height: 81vw !important; /* 16:9 default → 56.25vw → +20% → 67.5vw → +20% → 81vw */
+            margin: 0 auto 1rem auto !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            background: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+            border-radius: 0 !important;
+        }
+
+            .video-thumbnail-container video,
+            #productVideo {
+                width: 100% !important;
+                height: 81vw !important;
+                object-fit: cover !important;
+                object-position: center center !important;
+                display: block !important;
+                border-radius: 0 !important;
+                background: #fff !important;
+                margin: 0 !important;
+            }
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: 1.5rem !important;
+            margin-bottom: 1rem !important;
+            text-align: center !important;
+        }
+
+        .btn-cumpara-cardProdus {
+            width: 80vw !important; /* –15% față de ~95vw */
+            margin: 0 auto !important;
+            font-size: 1.1rem !important;
+            padding: 0.75em 1.5em !important;
+            border-radius: 12px !important;
+            display: inline-block !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+        }
+    }
+
+    /* =========================================
+         iPhone XR (414×896 CSS px) și iPhone 14 Pro Max (430×932 dp)
+         ========================================= */
+    @@media
+    /* iPhone XR (CSS pixeli: 414×896) */
+    (max-width: 414px) and (max-height: 896px) and (orientation: portrait),
+    /* iPhone 14 Pro Max (device-width: 430×932, portrait) */
+    (device-width: 430px) and (device-height: 932px) and (orientation: portrait) {
+        /* 1) Creștem înălțimea video-ului cu +20% față de 16:9 implicit
+           16:9 normal = 56.25vw → +20% = 67.5vw → +20% din 67.5vw = ~81vw,
+           dar aici direct cu aspect-ratio de 1/0.88 și min-height fix */
+        .video-thumbnail-container,
+        #productVideo,
+        .video-thumbnail-container video {
+            aspect-ratio: 1/0.88 !important; /* puțin mai „lung” decât pătrat */
+            min-height: 330px !important; /* forțăm de la 330px în sus */
+            max-height: 118vw !important; /* ~+20% peste 98vw (default) */
+            margin-bottom: 1.8rem !important; /* spațiu generos sub video pentru test */
+        }
+        /* 2) Creștem spațiul dintre video și linia „CUTIE 3 KG” */
+        .pret-marketing {
+            margin-top: 5rem !important; /* spațiu pornind de sus de la scară mare */
+        }
+    }
+
+   @@media (device-width: 375px) and (device-height: 667px) and (orientation: portrait) {
+    .video-thumbnail-container,
+    .video-thumbnail-container video,
+    #productVideo {
+        min-height: 351px !important;    /* 390px -10% */
+        max-height: 122vw !important;    /* 136vw -10% */
+        aspect-ratio: 1/0.88 !important; /* la fel ca celelalte device-uri mici */
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    .video-thumbnail-container {
+        margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+    }
+    .pret-marketing {
+        margin-top: 0 !important;
+    }
+    .cumpara-cardProdus-wrapper {
+        margin-top: clamp(1.2em, 8vw, 2.3em) !important;
+        margin-bottom: clamp(1.1em, 7vw, 2em) !important;
+        text-align: center !important;
+    }
+    .btn-cumpara-cardProdus {
+        width: 62vw !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+        display: block !important;
+        font-size: 1.09rem !important;
+        padding: 0.67em 1.6em !important;
+        border-radius: 34px !important;
+        box-sizing: border-box !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.01em !important;
+        box-shadow: 0 2px 14px #1f3b716b !important;
+        line-height: 1.1 !important;
+    }
+}
+
+
+    @@media (device-width: 414px) and (device-height: 896px) and (orientation: portrait),
+    {
+        /* Crește mult înălțimea video-ului și reduce spațiile */
+        .video-thumbnail-container {
+            min-height: 495px !important; /* Mult mai lung */
+            max-height: 177vw !important; /* Să nu depășească ecranul */
+            aspect-ratio: 1/0.88 !important; /* Poți schimba la 1/0.7 pentru extra lung */
+            margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+        }
+
+            .video-thumbnail-container video,
+            #productVideo {
+                min-height: 495px !important;
+                max-height: 177vw !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+        .pret-marketing {
+            margin-top: 0 !important;
+        }
+    }
+
+    @@media (device-width: 390px) and (device-height: 844px) and (orientation: portrait) {
+        .video-thumbnail-container {
+            min-height: 495px !important;
+            max-height: 177vw !important;
+            aspect-ratio: 1/0.88 !important;
+            margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+        }
+
+            .video-thumbnail-container video,
+            #productVideo {
+                min-height: 495px !important;
+                max-height: 177vw !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+        .pret-marketing {
+            margin-top: 0 !important;
+        }
+    }
+
+    @@media (device-width: 430px) and (device-height: 932px) and (orientation: portrait) {
+        .video-thumbnail-container {
+            min-height: 495px !important;
+            max-height: 177vw !important;
+            aspect-ratio: 1/0.88 !important; /* la fel ca XR/14PM */
+            margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+        }
+
+            .video-thumbnail-container video,
+            #productVideo {
+                min-height: 495px !important;
+                max-height: 177vw !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+        .pret-marketing {
+            margin-top: 0 !important;
+        }
+    }
+
+    
+    @@media (device-width: 360px) and (device-height: 740px) and (orientation: portrait) {
+    .video-thumbnail-container {
+        min-height: 390px !important;      /* era 495px */
+        max-height: 136vw !important;      /* era 177vw */
+        aspect-ratio: 1/0.88 !important;
+        margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+    }
+    .video-thumbnail-container video,
+    #productVideo {
+        min-height: 390px !important;
+        max-height: 136vw !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    .pret-marketing {
+        margin-top: 0 !important;
+    }
+
+    .btn-cumpara-cardProdus {
+            width: 62vw !important; /* foarte lat, ca pe XR */
+            max-width: 320px !important;
+            margin: 0 auto !important; /* centrat */
+            display: block !important;
+            font-size: 1.09rem !important; /* font normal, nu mai mic! */
+            padding: 0.67em 1.6em !important; /* padding bun, ca pe XR */
+            border-radius: 34px !important; /* colțuri rotunde */
+            box-sizing: border-box !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.01em !important;
+            box-shadow: 0 2px 14px #1f3b716b !important;
+            line-height: 1.1 !important;
+        }
+
+}
+
+
+ @@media (device-width: 375px) and (device-height: 812px) and (orientation: portrait) {
+    .video-thumbnail-container {
+        min-height: 390px !important;      /* era 495px */
+        max-height: 136vw !important;      /* era 177vw */
+        aspect-ratio: 1/0.88 !important;
+        margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+    }
+    .video-thumbnail-container video,
+    #productVideo {
+        min-height: 390px !important;
+        max-height: 136vw !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    .pret-marketing {
+        margin-top: 0 !important;
+    }
+
+    .btn-cumpara-cardProdus {
+            width: 62vw !important; /* foarte lat, ca pe XR */
+            max-width: 320px !important;
+            margin: 0 auto !important; /* centrat */
+            display: block !important;
+            font-size: 1.09rem !important; /* font normal, nu mai mic! */
+            padding: 0.67em 1.6em !important; /* padding bun, ca pe XR */
+            border-radius: 34px !important; /* colțuri rotunde */
+            box-sizing: border-box !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.01em !important;
+            box-shadow: 0 2px 14px #1f3b716b !important;
+            line-height: 1.1 !important;
+    }
+
+ }
+
+   
+
+@@media (device-width: 412px) and (device-height: 914px) and (orientation: portrait) {
+        .video-thumbnail-container {
+            min-height: 495px !important;
+            max-height: 177vw !important;
+            aspect-ratio: 1/0.88 !important; /* la fel ca XR/14PM */
+            margin-bottom: clamp(0.35rem, 2vw, 0.7rem) !important;
+        }
+
+            .video-thumbnail-container video,
+            #productVideo {
+                min-height: 495px !important;
+                max-height: 177vw !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+        .pret-marketing {
+            margin-top: 0 !important;
+        }
+    }
+
+
+    @@media (max-width: 393px) and (orientation: portrait) {
+  #productVideo,
+  .video-thumbnail-container video {
+    min-height: 330px !important;      /* de 3x mai mare ca 110px */
+    max-height: 81vw !important;       /* de 3x mai mare ca 27vw */
+    height: 330px !important;          /* forțează o înălțime mare */
+    aspect-ratio: 1/0.9 !important;    /* aproape pătrat, dar încă „pe verticală” */
+    border: none !important;
+  }
+  .video-thumbnail-container {
+    min-height: 330px !important;
+    max-height: 81vw !important;
+    height: 330px !important;
+    aspect-ratio: 1/0.9 !important;
+  }
+}
+
+
+    @@media (max-width: 400px) and (orientation: portrait) {
+        .video-thumbnail-container,
+        .video-thumbnail-container video,
+        #productVideo {
+            min-height: 330px !important;
+            max-height: 81vw !important;
+            aspect-ratio: 1/0.88 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            margin-bottom: 1.1rem !important;
+        }
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: 1.4rem !important;
+            margin-bottom: 1.1rem !important;
+        }
+
+        .btn-cumpara-cardProdus {
+            width: 76vw !important;
+            font-size: 1.07rem !important;
+            padding: 0.77em 1.1em !important;
+            border-radius: 15px !important;
+            box-sizing: border-box !important;
+        }
+    }
+
+
+    @@media (max-width: 600px) {
+        .video-thumbnail-container,
+        .video-thumbnail-container video,
+        #productVideo {
+            aspect-ratio: 1/0.88 !important;
+            min-height: 260px !important;
+            max-height: 81vw !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            background: #fff !important;
+        }
+
+        .cumpara-cardProdus-wrapper {
+            margin-top: 1.3rem !important;
+            margin-bottom: 1rem !important;
+            text-align: center !important;
+        }
+
+        .btn-cumpara-cardProdus {
+            width: 80vw !important;
+            max-width: 340px !important;
+            font-size: 1.10rem !important;
+            padding: 0.72em 1.55em !important;
+            border-radius: 18px !important;
+            display: block !important;
+            margin: 0 auto !important;
+        }
+    }
+
+    
+
+
+    @@media (max-width: 600px) and (min-width: 241px) {
+        html, body {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative !important;
+            box-sizing: border-box !important;
+        }
+
+            body, body * {
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+                max-width: 100vw !important;
+            }
+                /* === VIDEO & CONTAINER === */
+                body .video-thumbnail-container {
+                    width: 100vw !important;
+                    height: calc(100vw * 1.406) !important; /* scăzut cu ~10% din 1.64 */
+                    min-height: 414px !important;         /* scăzut cu ~10% din 485px */
+                    position: relative !important;
+                    overflow: hidden !important;
+                }
+
+
+                body #productVideo {
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    display: block !important;
+                    position: absolute !important;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    min-height: 414px !important;
+                }
+                /* === TITLU === */
+                body .carousel-title-solo {
+                    font-size: clamp(0.68rem, 4.4vw, 1.32rem) !important; /* redus cu 15% */
+                    padding-inline: clamp(8px, 5vw, 28px) !important;
+                    white-space: nowrap !important;
+                    overflow: visible !important;
+                    text-overflow: unset !important;
+                    line-height: 1.15 !important;
+                    text-align: center !important;
+                    box-sizing: border-box !important;
+                    max-width: 100vw !important;
+                    margin-top: clamp(1rem, 4vw, 2.6rem) !important; /* puțin mai puțin spațiu sus */
+                }
+                /* === STELE + RATING === */
+                body .carousel-stars-inline {
+                    display: flex !important;
+                    align-items: center !important;
+                    gap: 0.9vw !important;
+                    font-size: 3vw !important;
+                    margin-bottom: 0.7vw !important;
+                }
+
+                body .carousel-review-count {
+                    font-size: 3vw !important;
+                    line-height: 1 !important;
+                    margin-right: 1vw !important;
+                    margin-left: 1.5vw !important; /* redus cu 20% din 1.5vw dacă era implicit */
+
+                }
+
+                body .carousel-stars .stars {
+                    font-size: 3vw !important;
+                    line-height: 1 !important;
+
+                }
+                /* === PREȚ + REDUCERE === */
+                body .pret-marketing {
+                    font-size: 4vw !important;
+                    margin-top: 1.2vw !important;
+                    margin-bottom: 1vw !important;
+                    
+                }
+                /* === TEXT REVIEW === */
+                
+                body .review-text {
+                    font-size: 3.8vw !important;
+                    line-height: 1.55 !important;
+                    padding: 0.8vw 1vw 1vw 1vw !important;
+                    text-align: left !important;
+                    white-space: normal !important;
+                    word-break: break-word !important;
+                    margin-top: 0.8vw !important; /* Adaugă această linie dacă lipsește */
+                }
+
+                body .review-content {
+                    font-size: 3.8vw !important;
+                    line-height: 1.55 !important;
+                    padding: 0.8vw 1vw 0vw 1vw !important;
+                    text-align: left !important;
+                    white-space: normal !important;
+                    word-break: break-word !important;
+                    margin-top: 0.8vw !important; /* Adaugă această linie dacă lipsește */
+                }
+
+                /* === CITEȘTE MAI MULT + AUTOR === */
+                body .review-row-flex {
+                    display: flex !important;
+                    align-items: center !important;
+                    gap: 0.8vw !important;
+                    font-size: 2.7vw !important;
+                    padding: 0 4vw !important;
+                    margin-top: 0.6vw !important;
+                    white-space: nowrap !important;
+                }
+                /* === CUMPĂRĂ ACUM === */
+                body .cumpara-cardProdus-wrapper {
+                    margin: 3vw 0 2vw 0 !important;
+                    margin-bottom: clamp(6rem, 18vw, 9rem) !important;
+                    text-align: center !important;
+                }
+
+                body .btn-cumpara-cardProdus {
+                    font-size: 3vw !important;
+                    padding: 3vw 0 !important;
+                    width: 55vw !important;
+                    max-width: 90vw !important;
+                    border-radius: 10vw !important;
+                }
+        /* === GENERAL WIDTH + RESET === */
+        .container,
+        .carousel-outer,
+        .carousel-wrapper,
+        .carousel-video-area,
+        .video-thumbnail-container,
+        .product-review-card,
+        .hero-overlay,
+        .hero-title,
+        .hero-subtitle-nowrap,
+        .section,
+        .page-section {
+            width: 100vw !important;
+            max-width: 100vw !important;
+        }
+
+        .carousel-video-area,
+        .carousel-wrapper,
+        .container,
+        .main,
+        .hero-overlay {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        body .carousel-outer{
+            margin-bottom: 0 !important;
+        }
+
+
+        @@media (max-width: 420px) {
+            
+
+            body .carousel-stars-inline {
+                font-size: 3vw !important;
+                margin-bottom: 1vw !important;
+            }
+
+            body .pret-marketing {
+                font-size: 5vw !important;
+                margin-top: calc(15px * 0.75) !important; /* 25% mai mic */
+                margin-bottom: 2vw !important;
+            }
+
+            
+            body .review-text {
+                font-size: 4.7vw !important;
+                line-height: 1.6 !important;
+                padding-inline: 5vw !important;
+                margin-top: 1vw !important; /* Adaugă această linie dacă lipsește */
+                padding: 1vw 1vw 1vw 1vw !important;
+            }
+
+            body .review-content{
+                font-size: 4.7vw !important;
+                line-height: 1.6 !important;
+                padding-inline: 5vw !important;
+                margin-top: 1vw !important; /* Adaugă această linie dacă lipsește */
+                padding: 1vw 1vw 0vw 1vw !important;
+            }
+
+            body .review-row-flex {
+                font-size: 2.7vw !important;
+                padding-inline: 3.5vw !important;
+                margin-top: 1vw !important;
+            }
+
+            body .btn-cumpara-cardProdus {
+                font-size: 3.6vw !important;
+                padding: 3vw 0 !important;
+                width: 55vw !important;
+                border-radius: 10vw !important;
+            }
+
+            body .cumpara-cardProdus-wrapper {
+                margin-top: 3vw !important;
+                margin-bottom: clamp(6rem, 18vw, 9rem) !important;
+            }
+
+            /* body .product-review-card {
+                margin-bottom: 4vw !important;
+            } */
+
+            body #sliderCard {
+                margin-bottom: 1.5vw !important;
+                padding-bottom: 0 !important;
+            }
+
+        }
+
+        body #sliderCard > .pret-marketing:first-of-type {
+            margin-bottom: 25px !important; /* reduce spațiul sub linia de sus */
+        }
+
+        body #sliderCard > .pret-marketing:last-of-type {
+            margin-top: 0 !important; /* elimină orice spațiu deasupra liniei de jos */
+        }
+
+        body #sliderCard {
+            display: block !important; /* forțăm comportament normal de box */
+        }
+
+        body section.container.pt-0.pb-4.px-3 {
+            padding: 0 !important;
+            margin: 0 !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        body .product-review-card {
+            min-height: unset !important;
+            margin-bottom: 0 !important;
+            padding-bottom: 4vw !important;
+        }
+
+        body .detaliu-cutie{
+            color: #0071f3 !important;
+        }
+
+        body .egal {
+            color: #0071f3 !important;
+            font-size: 1em !important;      /* creștere cu 20% față de valoarea implicită */
+        }
+
+        body a.btn-vezi-produse {
+            font-size: clamp(0.78em, 3.5vw, 0.94em) !important;
+            padding: clamp(0.5em, 2.1vw, 0.62em) clamp(1.1em, 4.55vw, 1.5em) !important;
+            border-radius: clamp(17px, 4.2vw, 22px) !important;
+            font-weight: 800 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.1px !important;
+            line-height: 1.3 !important;
+        }
+    } // media 600px
+
+
+
+    body #sliderCard {
+        min-height: unset !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+
 </style>
 
-
+<!-- HERO VIDEO -->
 <div class="full-width-hero">
     <video id="heroVideo"
            class="hero-video"
@@ -399,16 +3017,15 @@
            muted
            loop
            playsinline
-           poster="~/images/hero-preview.jpg">
-        <source src="~/videos/hero-9x16.mp4" type="video/mp4" media="(max-width: 700px) and (orientation: portrait)">
-        <source src="~/videos/hero-21x9.mp4" type="video/mp4" media="(min-aspect-ratio: 21/9)">
-        <source src="~/videos/hero-16x9.mp4" type="video/mp4" media="(min-aspect-ratio: 16/9) and (max-aspect-ratio: 21/9)">
-        <source src="~/videos/hero-4x3.mp4" type="video/mp4" media="(max-aspect-ratio: 4/3)">
-        <source src="~/videos/hero-1x1.mp4" type="video/mp4" media="(max-aspect-ratio: 1/1)">
-        <source src="~/videos/clip_final_cu_muzica.mp4" type="video/mp4">
+           poster="@Url.Content("~/images/hero-preview.jpg")">
+        <source src="@Url.Content("~/videos/hero-9x16.mp4")" type="video/mp4" media="(max-width: 700px) and (orientation: portrait)">
+        <source src="@Url.Content("~/videos/hero-21x9.mp4")" type="video/mp4" media="(min-aspect-ratio: 21/9)">
+        <source src="@Url.Content("~/videos/hero-16x9.mp4")" type="video/mp4" media="(min-aspect-ratio: 16/9) and (max-aspect-ratio: 21/9)">
+        <source src="@Url.Content("~/videos/hero-4x3.mp4")" type="video/mp4" media="(max-aspect-ratio: 4/3)">
+        <source src="@Url.Content("~/videos/hero-1x1.mp4")" type="video/mp4" media="(max-aspect-ratio: 1/1)">
+        <source src="@Url.Content("~/videos/clip_final_cu_muzica.mp4")" type="video/mp4">
         Browserul tău nu suportă video HTML5.
     </video>
-
     <div id="playOverlay" class="play-overlay">
         <svg viewBox="0 0 64 64" fill="white">
             <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.4)" />
@@ -417,18 +3034,101 @@
     </div>
 
     <div class="hero-overlay">
-        <h1>MULTĂ CARNE, PUȚINI CĂRBUNI!</h1>
-        <p>APRINDERE RAPIDĂ. JAR PUTERNIC. FĂRĂ FUM. ECO. 100% NATURALI</p>
-        <a href="/Website/Produse" class="btn btn-primary btn-lg mt-3 shadow">CUMPĂRĂ ACUM</a>
+        <h1 class="hero-title-nowrap">MULTĂ CARNE, PUȚINI CĂRBUNI!</h1>
+        <p class="hero-subtitle-nowrap">
+            <span style="font-weight: bold;">APRINDERE RAPIDĂ. JAR PUTERNIC.</span><br>
+            <span style="font-weight: bold;">FĂRĂ FUM. 100% NATURALI</span>
+        </p>
+        <a href="/Website/Produse" class="btn btn-primary btn-lg mt-3 shadow btn-vezi-produse">VEZI TOATE PRODUSELE</a>
     </div>
 
+
+
+
     <div class="sound-toggle" onclick="toggleSound()" title="Activează sunetul">
-        <img id="muteIcon" src="~/images/mute.png" alt="Mute" />
-        <img id="unmuteIcon" src="~/images/unmute.png" alt="Unmute" style="display:none;" />
+        <img id="muteIcon" src="@Url.Content("~/images/mute.png")" alt="Mute" />
+        <img id="unmuteIcon" src="@Url.Content("~/images/unmute.png")" alt="Unmute" style="display:none;" />
     </div>
 </div>
 
-<section class="container py-4 px-3" style="max-width: 720px; margin: auto;">
+<!-- CAROUSEL -->
+<div class="carousel-outer">
+    <div class="carousel-title-area">
+        <div class="carousel-title-solo" id="productTitle">CĂRBUNE PRESAT DIN LEMN</div>
+    </div>
+    <!-- Stelele + număr mutat sub titlu, dreapta jos -->
+    <div class="carousel-stars-row">
+        <div class="carousel-stars-inline">
+            <span class="stars" id="productStars">★★★★★</span>
+            <span class="review-rating" id="reviewRating">4.9</span>
+            <span class="carousel-review-count" id="reviewCount">(120)</span>
+        </div>
+    </div>
+    <div class="carousel-wrapper" style="margin-bottom: 0; padding-bottom: 0;">
+        <div class="product-review-card" id="sliderCard" style="margin-bottom: 0; padding-bottom: 0;">
+            <div class="video-thumbnail-container" id="videoBgContainer" style="position:relative;">
+                <button class="carousel-arrow prev" id="prevBtn" title="Previous">
+                    <span class="arrow-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#232323" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </span>
+                </button>
+                <video id="productVideo" poster="/images/thumbnail-carbune-presat.png" autoplay muted playsinline loop>
+                    <source src="/videos/clip-carbune-presat.mp4" type="video/mp4">
+                    Browserul tău nu suportă video HTML5.
+                </video>
+                <button class="carousel-arrow next" id="nextBtn" title="Next">
+                    <span class="arrow-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#232323" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 6 15 12 9 18"></polyline>
+                        </svg>
+                    </span>
+                </button>
+                <div id="pauseOverlay" class="pause-overlay" style="display: none;">
+                    <svg width="70" height="70" viewBox="0 0 64 64" fill="#fff">
+                        <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.36)" />
+                        <rect x="20" y="18" width="8" height="28" rx="2" />
+                        <rect x="36" y="18" width="8" height="28" rx="2" />
+                    </svg>
+                </div>
+            </div>
+            <div class="pret-marketing">
+                <span class="detaliu-cutie">CUTIE 3KG</span>
+                <span class="egal">=</span>
+                <span class="pret-vechi">25LEI</span>
+                <span class="pret-nou">19<small>,99</small>LEI</span>
+            </div>
+            <div class="pret-marketing">
+                <span class="detaliu-cutie">CUTIE 10KG</span>
+                <span class="egal">=</span>
+                <span class="pret-vechi">70LEI</span>
+                <span class="pret-nou">64<small>,99</small>LEI</span>
+            </div>
+            <div class="review-content">
+                <p class="review-text" id="reviewText">
+                    "Cel mai bun cărbune presat pe care l-am încercat! Arde curat, ține jarul mult timp și este perfect pentru grătar. Recomand cu încredere!"
+                </p>
+                <div class="review-row-flex" id="reviewRowFlex">
+                    <a href="#" class="read-more" id="readMore">CITEȘTE MAI MULT</a>
+                    <span class="review-right">
+                        <span class="review-author" id="reviewAuthor">ANDREI P.</span>
+                        <span class="verified-badge">REVIEW VERIFICAT</span>
+                    </span>
+                </div>
+                <div class="cumpara-cardProdus-wrapper">
+                    <a href="/Website/Produse" class="btn-cumpara-cardProdus">CUMPĂRĂ ACUM!</a>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<!-- CONTINUT SITE SUB CAROUSEL -->
+<section class="container pt-0 pb-4 px-3">
     <h1 class="h4 fw-bold mb-4 text-center text-uppercase">
         Cărbuni pentru grătar naturali
         <br class="d-sm-none" />
@@ -484,30 +3184,34 @@
     </div>
 </section>
 
+
 <script>
+    // -------------- HERO VIDEO ---------------
     const video = document.getElementById("heroVideo");
     const playOverlay = document.getElementById("playOverlay");
     const muteIcon = document.getElementById("muteIcon");
     const unmuteIcon = document.getElementById("unmuteIcon");
 
+    // Apasă pe video (HERO): pauză/play și arată/dispare overlay
     video.addEventListener('click', function () {
         if (video.paused) {
             video.play();
             playOverlay.style.display = "none";
         } else {
             video.pause();
-            playOverlay.style.display = "block";
+            playOverlay.style.display = "flex";
         }
     });
+    video.addEventListener('play', () => { playOverlay.style.display = "none"; });
+    video.addEventListener('pause', () => { playOverlay.style.display = "flex"; });
 
-    video.addEventListener('play', () => {
+    // Click pe overlay-ul de play pornește video-ul
+    playOverlay.addEventListener('click', function () {
+        video.play();
         playOverlay.style.display = "none";
     });
 
-    video.addEventListener('pause', () => {
-        playOverlay.style.display = "block";
-    });
-
+    // Toggle sunet HERO
     function toggleSound() {
         if (video.muted) {
             video.muted = false;
@@ -523,7 +3227,162 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         if (video.paused) {
-            playOverlay.style.display = "block";
+            playOverlay.style.display = "flex";
+        } else {
+            playOverlay.style.display = "none";
         }
     });
+
+    // -------------- CAROUSEL/REVIEW VIDEO ---------------
+    const products = [
+        {
+            title: "CĂRBUNE PRESAT DIN LEMN",
+            stars: "★★★★★",
+            reviewCount: 120,
+            video: "/videos/clip-carbune-presat.mp4",
+            thumbnail: "/images/thumbnail-carbune-presat.png",
+            reviewText: "The best pressed charcoal I have tried! Very clean burn, lasts long, and perfect for grilling. The best pressed charcoal I have tried! Very clean burn, lasts long, and perfect for grilling.",
+            reviewAuthor: "ANDREI P.",
+            readMore: "#"
+        }
+        // Poți adăuga alte produse aici
+    ];
+    let current = 0;
+    function showProduct(idx) {
+        if (!products.length) {
+            document.getElementById('productTitle').textContent = "NO PRODUCT";
+            document.getElementById('productStars').textContent = "";
+            document.getElementById('reviewCount').textContent = "";
+            document.querySelector('#productVideo source').src = "";
+            document.getElementById('productVideo').poster = "";
+            document.getElementById('productVideo').style.display = "none";
+            document.getElementById('reviewText').textContent = "";
+            document.getElementById('reviewAuthor').textContent = "";
+            document.getElementById('readMore').setAttribute('href', "#");
+            document.getElementById('videoBgContainer').style.background = "#fff";
+            return;
+        }
+        const prod = products[idx];
+        document.getElementById('productTitle').textContent = prod.title;
+        document.getElementById('productStars').textContent = prod.stars;
+        document.getElementById('reviewCount').textContent = `(${prod.reviewCount})`;
+        document.querySelector('#productVideo source').src = prod.video;
+        document.getElementById('productVideo').poster = prod.thumbnail;
+        document.getElementById('productVideo').muted = true;
+        document.getElementById('productVideo').style.display = "block";
+        document.getElementById('productVideo').load();
+        document.getElementById('productVideo').play();
+        document.getElementById('reviewText').textContent = prod.reviewText;
+        document.getElementById('reviewAuthor').textContent = prod.reviewAuthor;
+        document.getElementById('readMore').setAttribute('href', prod.readMore);
+        document.getElementById('videoBgContainer').style.background = "#fff";
+    }
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (products.length <= 1) return;
+        current = (current + 1) % products.length;
+        showProduct(current);
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (products.length <= 1) return;
+        current = (current - 1 + products.length) % products.length;
+        showProduct(current);
+    });
+    showProduct(current);
+
+        const productVideo = document.getElementById('productVideo');
+    const pauseOverlay = document.getElementById('pauseOverlay');
+
+    // Când dai click pe video: play/pause și overlay
+    productVideo.addEventListener('click', function () {
+        if (productVideo.paused) {
+            productVideo.play();
+        } else {
+            productVideo.pause();
+        }
+    });
+
+    // Arată overlay-ul de pauză când se pune pe pauză
+    productVideo.addEventListener('pause', () => {
+        pauseOverlay.style.display = "flex";
+    });
+
+    // Ascunde overlay-ul când rulează
+    productVideo.addEventListener('play', () => {
+        pauseOverlay.style.display = "none";
+    });
+
+    // Click pe overlay dă play la video
+    pauseOverlay.addEventListener('click', function (e) {
+        e.stopPropagation(); // Să nu trimită click-ul la video
+        productVideo.play();
+        pauseOverlay.style.display = "none";
+    });
+
+    // La încărcare, arată overlay dacă video e pe pauză
+    document.addEventListener('DOMContentLoaded', function () {
+        if (productVideo.paused) {
+            pauseOverlay.style.display = "flex";
+        } else {
+            pauseOverlay.style.display = "none";
+        }
+    });
+
 </script>
+<script>
+function resizeReviewRow() {
+    const row = document.getElementById('reviewRowFlex');
+    if (!row) return;
+    let size = 1.07; // valoarea implicită (în rem)
+
+    // Reset la valoarea implicită (ca să nu scadă mereu de la un font deja redus)
+    row.style.fontSize = size + 'rem';
+
+    // Scade font-size progresiv până încape pe o linie, dar nu mai mic de 0.74rem
+    let attempts = 0;
+    while (row.scrollWidth > row.clientWidth && size > 0.74 && attempts < 12) {
+        size -= 0.04;
+        row.style.fontSize = size + 'rem';
+        attempts++;
+    }
+}
+
+// Se redimensionează la resize, la încărcare și la orice schimbare de conținut
+window.addEventListener('resize', () => requestAnimationFrame(resizeReviewRow));
+document.addEventListener('DOMContentLoaded', resizeReviewRow);
+
+// Pentru conținut dinamic (ex: la schimbare review):
+// resizeReviewRow(); // apelează manual când vrei tu, după orice update de review
+</script>
+<script>
+        function resizeHeroTitle() {
+        const title = document.querySelector('.hero-title-nowrap');
+        if (!title) return;
+        // Resetăm la valoarea de bază (cea mai mare)
+        title.style.fontSize = '';
+        // Luăm font-size-ul calculat
+        let base = window.getComputedStyle(title).fontSize;
+        let size = parseFloat(base);
+        const unit = base.replace(/[0-9.]/g, '') || 'px';
+        // Limite ca să nu scadă infinit
+        const minSize = 0.72 * size;
+
+        // Verifică dacă încape pe o linie
+        while (
+            (title.scrollWidth > title.clientWidth + 1) && // plus 1 ca să nu taie la fix
+            size > minSize
+        ) {
+            size -= 1; // scade cu 1px la fiecare pas (poți ajusta cu 0.5 pentru fine tuning)
+            title.style.fontSize = size + unit;
+        }
+    }
+
+    // Rulează la încărcare și la resize (și la orice schimbare de titlu, dacă vrei)
+    window.addEventListener('resize', resizeHeroTitle);
+    document.addEventListener('DOMContentLoaded', resizeHeroTitle);
+    // Dacă schimbi titlul dinamic, poți apela resizeHeroTitle() din JS.
+</script>
+
+
+
+
+

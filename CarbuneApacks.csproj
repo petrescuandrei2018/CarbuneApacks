@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\videos\" />
   </ItemGroup>
 
 </Project>
