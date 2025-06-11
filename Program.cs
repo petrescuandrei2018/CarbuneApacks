@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,7 +20,32 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Website}/{action=Index}/{id?}");
+// ✅ AICI vine corect configurat endpoint-ul SEO + default
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "ReviewuriLemn",
+        pattern: "reviewuri/carbuni-lemn",
+        defaults: new { controller = "Website", action = "ReviewuriCarbuniLemn" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "CarbuneLemn",
+        pattern: "produse/carbuni-lemn",
+        defaults: new { controller = "Website", action = "CarbuneLemn" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "CarbuneCocos",
+        pattern: "produse/carbuni-cocos",
+        defaults: new { controller = "Website", action = "CarbuneCocos" }
+    );
+
+    // Default route
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Website}/{action=Index}/{id?}"
+    );
+});
+
 app.Run();

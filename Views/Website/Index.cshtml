@@ -265,7 +265,7 @@
         justify-content: flex-end;
         align-items: flex-end;
         margin-top: -14px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.1rem;
         padding-right: 8px;  /* să fie spre dreapta */
         min-height: 32px;
     }
@@ -468,7 +468,7 @@
     white-space: nowrap;
     color: #005eff;
     font-weight: 500;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
     vertical-align: middle;
 }
@@ -541,11 +541,22 @@
             right: calc(-1 * var(--carousel-arrow-offset));
         }
 
-        .carousel-arrow:hover, .carousel-arrow:focus {
+        .carousel-arrow:hover {
             background: #e1e3f3;
-            transform: translateY(-50%) scale(1.19);
+            transform: translateY(-50%);
             box-shadow: 0 6px 24px 0 rgba(51,51,170,0.18);
         }
+
+        .carousel-arrow:focus {
+            outline: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+        }
+
+        .carousel-arrow:focus-visible {
+            outline: none !important;
+        }
+
 
         .carousel-arrow .arrow-icon {
             width: 64%; /* săgeata să ocupe 64% din cerc, proporțional */
@@ -840,7 +851,7 @@
             white-space: nowrap !important;
             color: #005eff !important;
             font-weight: 500 !important;
-            text-decoration: underline !important;
+            text-decoration: none !important;
             cursor: pointer !important;
         }
 
@@ -1090,7 +1101,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
         }
@@ -1324,7 +1335,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
             transition: color 0.18s, filter 0.18s;
@@ -1332,7 +1343,7 @@
 
             .read-more:hover, .read-more:focus, .read-more:active {
                 color: #003a9e;
-                text-decoration: underline;
+                text-decoration: none;
                 filter: brightness(1.22);
             }
 
@@ -1662,7 +1673,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
             transition: color 0.18s, filter 0.18s;
@@ -1670,7 +1681,7 @@
 
             .read-more:hover, .read-more:focus, .read-more:active {
                 color: #003a9e;
-                text-decoration: underline;
+                text-decoration: none;
                 filter: brightness(1.22);
             }
 
@@ -1881,7 +1892,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
         }
@@ -2119,7 +2130,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
             transition: color 0.18s, filter 0.18s;
@@ -2127,7 +2138,7 @@
 
             .read-more:hover, .read-more:focus, .read-more:active {
                 color: #003a9e;
-                text-decoration: underline;
+                text-decoration: none;
                 filter: brightness(1.22);
             }
 
@@ -2331,7 +2342,7 @@
             white-space: nowrap;
             color: #005eff;
             font-weight: 500;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
             vertical-align: middle;
         }
@@ -2777,17 +2788,25 @@
                 }
                 /* === TITLU === */
                 body .carousel-title-solo {
-                    font-size: clamp(0.68rem, 4.4vw, 1.32rem) !important; /* redus cu 15% */
-                    padding-inline: clamp(8px, 5vw, 28px) !important;
-                    white-space: nowrap !important;
-                    overflow: visible !important;
-                    text-overflow: unset !important;
-                    line-height: 1.15 !important;
-                    text-align: center !important;
-                    box-sizing: border-box !important;
-                    max-width: 100vw !important;
-                    margin-top: clamp(1rem, 4vw, 2.6rem) !important; /* puțin mai puțin spațiu sus */
+                  font-size: clamp(1rem, 6vw, 1.85rem) !important;
+padding-left: clamp(8px, 4vw, 24px) !important;
+    padding-right: clamp(20px, 12vw, 48px) !important; /* creștere semnificativă în dreapta */
+
+                  white-space: nowrap !important;
+                  overflow: hidden !important;
+                  text-overflow: unset !important;
+                  line-height: 1.15 !important;
+                  text-align: center !important;
+                  max-width: 100vw !important;
+                  margin-top: clamp(0.8rem, 3vw, 2rem) !important;
+                  margin-bottom: clamp(0.2rem, 1vw, 1rem) !important;
+                  font-weight: 900;
+                  text-transform: uppercase;
+                  letter-spacing: 0.01em;
+                  color: #232323;
                 }
+
+
                 /* === STELE + RATING === */
                 body .carousel-stars-inline {
                     display: flex !important;
@@ -2814,13 +2833,14 @@
                 body .pret-marketing {
                     font-size: 4vw !important;
                     margin-top: 1.2vw !important;
-                    margin-bottom: 1vw !important;
-                    
+                    margin-bottom: 0.5vw !important;
+                        line-height: 1.1 !important;
+
                 }
                 /* === TEXT REVIEW === */
                 
                 body .review-text {
-                    font-size: 3.8vw !important;
+                    font-size: 3.5vw !important;
                     line-height: 1.55 !important;
                     padding: 0.8vw 1vw 1vw 1vw !important;
                     text-align: left !important;
@@ -2830,13 +2850,13 @@
                 }
 
                 body .review-content {
-                    font-size: 3.8vw !important;
+                    font-size: 3.7vw !important;
                     line-height: 1.55 !important;
                     padding: 0.8vw 1vw 0vw 1vw !important;
                     text-align: left !important;
                     white-space: normal !important;
                     word-break: break-word !important;
-                    margin-top: 0.8vw !important; /* Adaugă această linie dacă lipsește */
+                    margin-top: 0.5vw !important; /* Adaugă această linie dacă lipsește */
                 }
 
                 /* === CITEȘTE MAI MULT + AUTOR === */
@@ -2846,7 +2866,7 @@
                     gap: 0.8vw !important;
                     font-size: 2.7vw !important;
                     padding: 0 4vw !important;
-                    margin-top: 0.6vw !important;
+                    margin-top: 0.5vw !important;
                     white-space: nowrap !important;
                 }
                 /* === CUMPĂRĂ ACUM === */
@@ -2902,14 +2922,14 @@
             }
 
             body .pret-marketing {
-                font-size: 5vw !important;
-                margin-top: calc(15px * 0.75) !important; /* 25% mai mic */
-                margin-bottom: 2vw !important;
-            }
+    font-size: 4.9vw !important; /* doar ușor mai mic – 2% reducere */
+    margin-top: calc(15px * 0.6) !important; /* redus de la 25% la 40% din 15px */
+    margin-bottom: 1.4vw !important; /* redus de la 2vw */
+}
 
             
             body .review-text {
-                font-size: 4.7vw !important;
+                font-size: 4vw !important;
                 line-height: 1.6 !important;
                 padding-inline: 5vw !important;
                 margin-top: 1vw !important; /* Adaugă această linie dacă lipsește */
@@ -2917,7 +2937,7 @@
             }
 
             body .review-content{
-                font-size: 4.7vw !important;
+                font-size: 4vw !important;
                 line-height: 1.6 !important;
                 padding-inline: 5vw !important;
                 margin-top: 1vw !important; /* Adaugă această linie dacă lipsește */
@@ -2954,12 +2974,12 @@
         }
 
         body #sliderCard > .pret-marketing:first-of-type {
-            margin-bottom: 25px !important; /* reduce spațiul sub linia de sus */
-        }
+    margin-bottom: 0.1vw !important; /* redus față de ce era */
+}
 
-        body #sliderCard > .pret-marketing:last-of-type {
-            margin-top: 0 !important; /* elimină orice spațiu deasupra liniei de jos */
-        }
+body #sliderCard > .pret-marketing:last-of-type {
+    margin-top: 0vw !important; /* elimină complet spațiul */
+}
 
         body #sliderCard {
             display: block !important; /* forțăm comportament normal de box */
@@ -2996,6 +3016,132 @@
             letter-spacing: 0.1px !important;
             line-height: 1.3 !important;
         }
+
+        
+
+        @@media (max-width: 500px) {
+            body .video-thumbnail-container {
+                height: calc(100vw * 1.55) !important; /* crescut cu 10% față de 1.406 */
+                min-height: 455px !important; /* crescut cu 10% față de 414px */
+            }
+
+            body #productVideo {
+                height: 100% !important;
+                min-height: 455px !important;
+            }
+        }
+
+
+        body .carousel-title-area {
+            margin-top: 0.3vw !important; /* mai mic decât default-ul (ex: 1vw) */
+        }
+
+
+body #readMore {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0;
+    border-radius: 0;
+    font-weight: bold;
+    font-size: clamp(0.64rem, 2.7vw, 0.78rem);
+    text-transform: uppercase;
+    cursor: pointer;
+    line-height: 1.1;
+    margin-inline: 0.5vw;
+    text-decoration: none;
+}
+
+body #readMore:hover {
+    text-decoration: underline;
+}
+
+body #readMore span.badge-tip-categorie {
+    color: #0069d9;
+    font-weight: bold;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    line-height: 1.1;
+}
+
+body #readMore,
+body .review-row-flex {
+    font-size: clamp(0.67rem, 2.8vw, 0.78rem) !important;
+    line-height: 1.1 !important;
+}
+
+
+body .carousel-title-solo {
+    font-size: clamp(1rem, 6vw, 1.85rem) !important;
+    padding-left: 8vw !important;
+    padding-right: 16vw !important; /* Mărit clar spațiul din dreapta */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    max-width: 100vw !important;
+    margin-top: clamp(0.8rem, 3vw, 2rem) !important;
+    margin-bottom: clamp(0.2rem, 1vw, 1rem) !important;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: #232323;
+  }
+
+        body #productTitle,
+        body #productTitle2 {
+            display: block !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: visible !important;
+            text-overflow: unset !important;
+            box-sizing: border-box;
+            text-align: center !important;
+            letter-spacing: 0.01em;
+            line-height: 1.2 !important;
+            color: #232323;
+            padding-left: 4vw !important;
+            padding-right: 6vw !important; /* spațiu de siguranță dreapta */
+            margin: clamp(1.1rem, 5vw, 2.4rem) auto 1vw auto !important; /* ↓ cu 10% spațiul sus */
+
+            font-size: clamp(0.63rem, 4.2vw, 1.05rem) !important;
+            max-width: 100vw !important;
+        }
+
+
+
+@@media (max-width: 430px) {
+  body #productTitle,
+  body #productTitle2 {
+    font-size: clamp(0.62rem, 3.4vw, 0.99rem) !important; /* mărit cu aprox. 10% */
+    padding-right: 5.5vw !important; /* ușor mai mare marginea dreapta */
+  }
+
+  body .carousel-arrow {
+        width: clamp(2.1rem, 9vw, 3.2rem) !important;
+        height: clamp(2.1rem, 9vw, 3.2rem) !important;
+    }
+
+    body .carousel-arrow.prev {
+        left: 2.8vw !important;
+    }
+
+    body .carousel-arrow.next {
+        right: 2.8vw !important;
+    }
+}  /* 430px */
+
+  body #productTitle.active,
+  body #productTitle2.active {
+    display: block !important;
+  }
+
     } // media 600px
 
 
@@ -3004,6 +3150,171 @@
         min-height: unset !important;
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
+    }
+
+    /* Slide + zoom effect pentru tranziția cardului */
+    #sliderCard {
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+#sliderCard.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+#sliderCard.fade-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+    /* Săgeți carusel - fără scale, doar culoare albastră la click */
+    .carousel-arrow {
+        background: #ffffff;
+        border: none;
+        border-radius: 50%;
+        padding: 0.6em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+        .carousel-arrow.prev {
+            left: 2vw;
+        }
+
+        .carousel-arrow.next {
+            right: 2vw;
+        }
+
+        
+
+            
+
+            body #productTitle,
+body #productTitle2 {
+  display: none !important;
+}
+body #productTitle.active,
+body #productTitle2.active {
+  display: block !important;
+
+}
+
+body #readMore {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0;
+    border-radius: 0;
+    font-weight: bold;
+    font-size: clamp(0.64rem, 2.7vw, 0.78rem);
+    text-transform: uppercase;
+    cursor: pointer;
+    line-height: 1.1;
+    margin-inline: 0.5vw;
+    text-decoration: none;
+}
+
+body #readMore:hover {
+    text-decoration: underline;
+}
+
+body #readMore span.badge-tip-categorie {
+    color: #0069d9;
+    font-weight: bold;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    line-height: 1.1;
+}
+
+body #readMore,
+body .review-row-flex {
+    font-size: clamp(0.67rem, 2.8vw, 0.78rem) !important;
+    line-height: 1.1 !important;
+}
+
+body .carousel-arrow.clicked-fix {
+    background-color: #1f3b71 !important;
+    transform: scale(1.1);
+}
+
+body .carousel-arrow.clicked-fix .arrow-icon svg {
+    stroke: white !important;
+}
+
+body .carousel-arrow.arrow-clicked {
+    background-color: #1f3b71 !important;
+    transform: scale(1.1);
+}
+
+body .carousel-arrow.arrow-clicked .arrow-icon svg {
+    stroke: white !important;
+}
+
+/* ================= SĂGEȚI CAROUSEL ================= */
+
+body .carousel-arrow {
+    background: #ffffff;
+    border: none;
+    border-radius: 50%;
+    padding: 0.6em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(1);
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+    width: clamp(2.3rem, 8vw, 3.4rem);
+    height: clamp(2.3rem, 8vw, 3.4rem);
+}
+
+body .carousel-arrow.prev {
+    left: clamp(2vw, 6vw, 4vw);
+}
+
+body .carousel-arrow.next {
+    right: clamp(2vw, 6vw, 4vw);
+}
+
+body .carousel-arrow.arrow-clicked {
+    background-color: #1f3b71 !important;
+    transform: translateY(-50%) scale(1.1);
+}
+
+body .carousel-arrow.arrow-clicked .arrow-icon svg {
+    stroke: white !important;
+}
+
+    .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
     }
 
 
@@ -3039,7 +3350,7 @@
             <span style="font-weight: bold;">APRINDERE RAPIDĂ. JAR PUTERNIC.</span><br>
             <span style="font-weight: bold;">FĂRĂ FUM. 100% NATURALI</span>
         </p>
-        <a href="/Website/Produse" class="btn btn-primary btn-lg mt-3 shadow btn-vezi-produse">VEZI TOATE PRODUSELE</a>
+        <a href="/produse" class="btn btn-primary btn-lg mt-3 shadow btn-vezi-produse">VEZI TOATE PRODUSELE</a>
     </div>
 
 
@@ -3054,7 +3365,8 @@
 <!-- CAROUSEL -->
 <div class="carousel-outer">
     <div class="carousel-title-area">
-        <div class="carousel-title-solo" id="productTitle">CĂRBUNE PRESAT DIN LEMN</div>
+        <div class="carousel-title-solo" id="productTitle">CĂRBUNE HEXAGONAL BRICHETAT DIN LEMN</div>
+        <div class="carousel-title-solo" id="productTitle2" style="display: none;">CĂRBUNE BRICHETAT DIN NUCĂ DE COCOS</div>
     </div>
     <!-- Stelele + număr mutat sub titlu, dreapta jos -->
     <div class="carousel-stars-row">
@@ -3110,14 +3422,14 @@
                     "Cel mai bun cărbune presat pe care l-am încercat! Arde curat, ține jarul mult timp și este perfect pentru grătar. Recomand cu încredere!"
                 </p>
                 <div class="review-row-flex" id="reviewRowFlex">
-                    <a href="#" class="read-more" id="readMore">CITEȘTE MAI MULT</a>
+                    <a href="/produse/carbuni-lemn" class="read-more" id="readMore">VEZI DETALII CĂRBUNE BRICHETAT</a>
                     <span class="review-right">
                         <span class="review-author" id="reviewAuthor">ANDREI P.</span>
                         <span class="verified-badge">REVIEW VERIFICAT</span>
                     </span>
                 </div>
                 <div class="cumpara-cardProdus-wrapper">
-                    <a href="/Website/Produse" class="btn-cumpara-cardProdus">CUMPĂRĂ ACUM!</a>
+                    <a class="btn-cumpara-cardProdus">CUMPĂRĂ ACUM!</a>
                 </div>
             </div>
         </div>
@@ -3185,6 +3497,94 @@
 </section>
 
 
+
+
+<script>
+    const baseUrl = window.location.hostname.includes('localhost')
+        ? 'https://localhost:7170'
+        : 'https://carbune.ro';
+
+    const products = [
+        {
+            title: "CĂRBUNE HEXAGONAL BRICHETAT DIN LEMN",
+            stars: "★★★★★",
+            reviewCount: 120,
+            video: "/videos/clip-carbune-presat.mp4",
+            thumbnail: "/images/thumbnail-carbune-presat.png",
+            reviewText: "Cel mai bun cărbune presat pe care l-am încercat! Arde curat, ține jarul mult timp și este perfect pentru grătar. Recomand cu încredere!",
+            reviewAuthor: "ANDREI P.",
+            readMore: "/produse/carbuni-lemn",
+            reviewPage: "/reviewuri/carbuni-lemn",
+            prices: [
+                { cutie: "3KG", pretVechi: "25LEI", pretNou: "19<small>,99</small>LEI" },
+                { cutie: "10KG", pretVechi: "70LEI", pretNou: "64<small>,99</small>LEI" }
+            ]
+        },
+        {
+            title: "CĂRBUNE BRICHETAT DIN NUCĂ DE COCOS",
+            stars: "★★★★★",
+            reviewCount: 286,
+            video: "/videos/cocos_site.mp4",
+            thumbnail: "/images/thumbnail-cocos.png",
+            reviewText: "Arde excelent și are un miros plăcut, fără fum. Fabricat din cele mai fine nuci de cocos de pe planeta, mai exact regiunea KHERLA DIN INDIA DE SUD. Perfect pentru carne fragedă.",
+            reviewAuthor: "CRISTI I.",
+            readMore: "/produse/carbuni-cocos",
+            reviewPage: "/reviewuri/carbuni-cocos",
+            prices: [
+                { cutie: "3KG", pretVechi: "30LEI", pretNou: "22<small>,99</small>LEI" },
+                { cutie: "10KG", pretVechi: "75LEI", pretNou: "67<small>,99</small>LEI" }
+            ]
+        }
+    ];
+
+    function seteazaRedirecturi(prod) {
+        const toateRedirecturile = [
+            {
+                selectori: [
+                    '.pret-marketing',
+                    '.btn-cumpara-cardProdus',
+                    '#productTitle',
+                    '#productTitle2',
+                    '.carousel-title-solo'
+                ],
+                link: prod.readMore
+            },
+            {
+                selectori: [
+                    '.stars',
+                    '.review-rating',
+                    '.carousel-review-count',
+                    '.review-text',
+                    '.review-author',
+                    '.verified-badge'
+                ],
+                link: prod.reviewPage
+            }
+        ];
+
+        toateRedirecturile.forEach(grup => {
+            grup.selectori.forEach(selector => {
+                document.querySelectorAll(selector).forEach(elem => {
+                    // Doar titlul activ
+                    if (selector.includes('.carousel-title-solo') && !elem.classList.contains('active')) return;
+
+                    elem.style.cursor = 'pointer';
+                    elem.onclick = () => window.location.href = baseUrl + grup.link;
+                });
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const produsCurent = products[0]; // sau products[current]
+        seteazaRedirecturi(produsCurent);
+    });
+</script>
+
+
+
+
+
 <script>
     // -------------- HERO VIDEO ---------------
     const video = document.getElementById("heroVideo");
@@ -3234,23 +3634,29 @@
     });
 
     // -------------- CAROUSEL/REVIEW VIDEO ---------------
-    const products = [
-        {
-            title: "CĂRBUNE PRESAT DIN LEMN",
-            stars: "★★★★★",
-            reviewCount: 120,
-            video: "/videos/clip-carbune-presat.mp4",
-            thumbnail: "/images/thumbnail-carbune-presat.png",
-            reviewText: "The best pressed charcoal I have tried! Very clean burn, lasts long, and perfect for grilling. The best pressed charcoal I have tried! Very clean burn, lasts long, and perfect for grilling.",
-            reviewAuthor: "ANDREI P.",
-            readMore: "#"
-        }
-        // Poți adăuga alte produse aici
-    ];
-    let current = 0;
-    function showProduct(idx) {
+    
+
+
+
+
+
+let current = 0;
+
+function showProduct(idx, direction = "right") {
+    const card = document.getElementById("sliderCard");
+    const title1 = document.getElementById("productTitle");
+    const title2 = document.getElementById("productTitle2");
+    const readMore = document.getElementById('readMore');
+
+    card.classList.add(direction === "left" ? "slide-left" : "slide-right", "zoom-out");
+
+    setTimeout(() => {
         if (!products.length) {
-            document.getElementById('productTitle').textContent = "NO PRODUCT";
+            title1.textContent = "NO PRODUCT";
+            title2.textContent = "";
+            title1.classList.add("active");
+            title2.classList.remove("active");
+
             document.getElementById('productStars').textContent = "";
             document.getElementById('reviewCount').textContent = "";
             document.querySelector('#productVideo source').src = "";
@@ -3258,36 +3664,125 @@
             document.getElementById('productVideo').style.display = "none";
             document.getElementById('reviewText').textContent = "";
             document.getElementById('reviewAuthor').textContent = "";
-            document.getElementById('readMore').setAttribute('href', "#");
+            readMore.setAttribute('href', "#");
+            readMore.innerHTML = "";
+
             document.getElementById('videoBgContainer').style.background = "#fff";
+            document.getElementById('productPrices').innerHTML = "";
             return;
         }
+
         const prod = products[idx];
-        document.getElementById('productTitle').textContent = prod.title;
+
+        // Titluri
+        title1.classList.remove("active");
+        title2.classList.remove("active");
+        if (idx === 0) {
+            title1.textContent = prod.title;
+            title1.classList.add("active");
+        } else {
+            title2.textContent = prod.title;
+            title2.classList.add("active");
+        }
+
+        // Video
+        document.querySelector('#productVideo source').src = prod.video;
+        const video = document.getElementById('productVideo');
+        video.poster = prod.thumbnail;
+        video.muted = true;
+        video.style.display = "block";
+        video.load();
+        video.play();
+
+        // Review
         document.getElementById('productStars').textContent = prod.stars;
         document.getElementById('reviewCount').textContent = `(${prod.reviewCount})`;
-        document.querySelector('#productVideo source').src = prod.video;
-        document.getElementById('productVideo').poster = prod.thumbnail;
-        document.getElementById('productVideo').muted = true;
-        document.getElementById('productVideo').style.display = "block";
-        document.getElementById('productVideo').load();
-        document.getElementById('productVideo').play();
         document.getElementById('reviewText').textContent = prod.reviewText;
         document.getElementById('reviewAuthor').textContent = prod.reviewAuthor;
-        document.getElementById('readMore').setAttribute('href', prod.readMore);
         document.getElementById('videoBgContainer').style.background = "#fff";
-    }
-    document.getElementById('nextBtn').addEventListener('click', () => {
-        if (products.length <= 1) return;
-        current = (current + 1) % products.length;
-        showProduct(current);
+
+        // Prețuri
+        const priceDivs = document.querySelectorAll(".pret-marketing");
+        priceDivs.forEach(div => div.innerHTML = "");
+        prod.prices.forEach((p, index) => {
+            if (priceDivs[index]) {
+                priceDivs[index].innerHTML = `
+                    <span class="detaliu-cutie">${p.cutie}</span>
+                    <span class="egal">=</span>
+                    <span class="pret-vechi">${p.pretVechi}</span>
+                    <span class="pret-nou">${p.pretNou}</span>
+                `;
+            }
+        });
+
+        // Buton "VEZI DETALII"
+            const tipCarbune = idx === 0 ? "CĂRBUNE BRICHETAT" : "CĂRBUNE COCOS";
+    readMore.setAttribute('href', prod.readMore);
+    readMore.innerHTML = `
+        <span class="text-black fw-bold">VEZI DETALII</span>
+        <span class="badge-tip-categorie">${tipCarbune}</span>
+    `;
+
+
+        // Reset animații
+        card.classList.remove("slide-left", "slide-right", "zoom-out");
+    }, 200);
+
+}
+
+
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+// Butonul "Next"
+nextBtn.addEventListener('click', () => {
+    if (products.length <= 1) return;
+    current = (current + 1) % products.length;
+    showProduct(current, "right");
+    seteazaRedirecturi(products[current]); // actualizează redirecturile
+
+
+
+    nextBtn.classList.add("clicked");
+    setTimeout(() => {
+        nextBtn.classList.remove("clicked");
+    }, 300);
+    nextBtn.blur();
+});
+
+// Butonul "Previous"
+prevBtn.addEventListener('click', () => {
+    if (products.length <= 1) return;
+    current = (current - 1 + products.length) % products.length;
+    showProduct(current, "left");
+    seteazaRedirecturi(products[current]); // actualizează redirecturile
+
+
+    prevBtn.classList.add("clicked");
+    setTimeout(() => {
+        prevBtn.classList.remove("clicked");
+    }, 300);
+    prevBtn.blur();
+});
+
+// Simulare manuală pentru efect touch pe mobile
+[nextBtn, prevBtn].forEach(btn => {
+    btn.addEventListener("touchstart", () => {
+        btn.classList.add("clicked-fix");
     });
-    document.getElementById('prevBtn').addEventListener('click', () => {
-        if (products.length <= 1) return;
-        current = (current - 1 + products.length) % products.length;
-        showProduct(current);
+
+    btn.addEventListener("touchend", () => {
+        btn.classList.remove("clicked-fix");
     });
-    showProduct(current);
+
+    btn.addEventListener("mouseleave", () => {
+        btn.classList.remove("clicked-fix");
+    });
+});
+
+
+
+
 
         const productVideo = document.getElementById('productVideo');
     const pauseOverlay = document.getElementById('pauseOverlay');
@@ -3318,16 +3813,29 @@
         pauseOverlay.style.display = "none";
     });
 
-    // La încărcare, arată overlay dacă video e pe pauză
-    document.addEventListener('DOMContentLoaded', function () {
-        if (productVideo.paused) {
-            pauseOverlay.style.display = "flex";
-        } else {
-            pauseOverlay.style.display = "none";
-        }
-    });
+
 
 </script>
+
+<script>
+          document.addEventListener('DOMContentLoaded', function () {
+        showProduct(0); // Asigură inițializarea corectă
+        resizeHeroTitle();
+        resizeReviewRow();
+
+        document.querySelectorAll(".carousel-arrow").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".carousel-arrow").forEach(el => el.classList.remove("arrow-clicked"));
+                btn.classList.add("arrow-clicked");
+                btn.offsetHeight;
+                setTimeout(() => {
+                    btn.classList.remove("arrow-clicked");
+                }, 400);
+            });
+        });
+    });
+</script>
+
 <script>
 function resizeReviewRow() {
     const row = document.getElementById('reviewRowFlex');
@@ -3353,6 +3861,7 @@ document.addEventListener('DOMContentLoaded', resizeReviewRow);
 // Pentru conținut dinamic (ex: la schimbare review):
 // resizeReviewRow(); // apelează manual când vrei tu, după orice update de review
 </script>
+
 <script>
         function resizeHeroTitle() {
         const title = document.querySelector('.hero-title-nowrap');
@@ -3381,6 +3890,15 @@ document.addEventListener('DOMContentLoaded', resizeReviewRow);
     document.addEventListener('DOMContentLoaded', resizeHeroTitle);
     // Dacă schimbi titlul dinamic, poți apela resizeHeroTitle() din JS.
 </script>
+
+
+
+
+
+
+
+
+
 
 
 

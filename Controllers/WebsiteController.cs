@@ -19,6 +19,16 @@ namespace CarbuneApacks.Controllers
             return View();
         }
 
+        public IActionResult CarbuneLemn()
+        {
+            return View("carbuni-lemn");
+        }
+
+        public IActionResult ReviewuriCarbuniLemn()
+        {
+            return View("reviewuri-carbuni-lemn");
+        }
+
         [HttpPost]
         public IActionResult TrimiteContact(string nume, string email, string mesaj)
         {
@@ -26,9 +36,10 @@ namespace CarbuneApacks.Controllers
             return RedirectToAction("Contact");
         }
 
+        [Route("produse")]
         public IActionResult Produse()
         {
-            return View();
+            return View("produse");
         }
 
         public IActionResult CumAlegiCarbunii()
@@ -47,9 +58,16 @@ namespace CarbuneApacks.Controllers
             return View("carbuni-rumegus");
         }
 
+        [Route("produse/carbuni-cocos")]
         public IActionResult CarbuniCocos()
         {
             return View("carbuni-cocos");
+        }
+
+        [Route("reviewuri/carbuni-cocos")]
+        public IActionResult ReviewCocos()
+        {
+            return View("review-cocos");
         }
 
         public IActionResult CarbuniBambus()
